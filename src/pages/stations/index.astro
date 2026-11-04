@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { DEPOTS, depotSlug } from '../../data/depots.data.mjs';
+
+const title = 'MSRTC Bus Stands & Divisions Contact Directory — All 20 Regions';
+const description = 'Directory of MSRTC bus station inquiry telephone numbers and station master desks across all 20 Maharashtra transport divisions.';
+const path = '/stations';
+
+const totalStands = DEPOTS.reduce((acc, d) => acc + d.stands.length, 0);
+
+const breadcrumbs = [
+  { label: 'Bus Stations', href: path },
+];
+---
+
+<Base title={title} description={description} path={path} breadcrumbs={breadcrumbs}>
+
+  <div class="wrap" style="padding-top:1.5rem;padding-bottom:3.5rem;">
+
+    <header style="margin-bottom:2rem;">
+      <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
+        Maharashtra State Transport · Station Directory
+      </div>
+      <h1 class="section-title" style="font-size:2.25rem;margin-bottom:0.4rem;">
+        MSRTC Bus Stations &amp; Transport Divisions
+      </h1>
+      <p style="font-size:0.95rem;font-weight:600;color:var(--primary-blue);margin-bottom:0.75rem;">
+        महाराष्ट्र एसटी बस स्थानक संपर्क व चौकशी कक्ष
+      </p>
+      <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
+        Direct telephone lines for platform enquiry desks, station masters, and control rooms across <strong>{DEPOTS.length} transport divisions</strong> and <strong>{totalStands} major terminals</strong> in Maharashtra.
+      </p>
+
+      <!-- Instant Filter Input -->
+      <div style="position:relative;margin:1.5rem 0 1rem;">
+        <input
+          type="search"
+          id="depot-filter-input"
+          class="hero-search-input"
+          placeholder="Filter bus stations (e.g. Pune, Mumbai, Swargate, Thane, Nashik, Kolhapur)..."
+          aria-label="Filter MSRTC bus stations"
+          autocomplete="off"
+        />
+        <div id="depot-filter-empty" style="display:none;padding:1.5rem;text-align:center;color:var(--slate-muted);background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:0.5rem;">
+          <p style="font-weight:600;color:var(--ink);">No stations matched your filter</p>
+          <p style="font-size:0.85rem;margin-top:0.25rem;">Try another city name or call the toll-free helpline at 1800-22-1250</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Above-The-Fold Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored Advertisement" />
+
+    <!-- Depots Grid -->
+    <div id="depot-grid-container" class="rtc-grid" style="grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));margin:2.5rem 0;">
+      {DEPOTS.map((d) => {
+        const name = d.alsoKnownAs ? d.region : d.city[0].toUpperCase() + d.city.slice(1);
+        const standCount = d.stands.length;
+        const mainNumber = d.stands[0].numbers[0];
+        const searchKeywords = `${name} ${d.city} ${d.region} ${d.alsoKnownAs || ''} ${d.stands.map(s => s.label).join(' ')}`.toLowerCase();
+        return (
+          <a class="rtc-card depot-card-item" href={`/${depotSlug(d.city)}`} data-search={searchKeywords} aria-label={`${name} bus station contact details`}>
+            <div>
+              <div class="rtc-card-top">
+                <span class="state-chip">{name}</span>
+                <span style="font-size:0.75rem;font-weight:600;color:var(--slate-muted);">
+                  {standCount} {standCount === 1 ? 'Stand' : 'Stands'}
+                </span>
+              </div>
+              <h2 class="rtc-card-title" style="font-size:1.1rem;">{name} Bus Station</h2>
+              <p style="font-size:0.82rem;color:var(--slate-muted);margin-top:0.2rem;">
+                {d.region} Transport Division
+              </p>
+            </div>
+            <div class="rtc-card-meta">
+              <span style="font-family:var(--font-mono);font-weight:600;color:var(--primary-blue);">
+                Desk: {mainNumber}
+              </span>
+              <span style="color:var(--primary-blue);font-weight:600;">Details</span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Mid-Content Ad Slot -->
+    <AdSlot slotId="5213571252" label="Advertisement" />
+
+    <!-- Pre-Footer Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored" />
+
+  </div>
+
+  <script>
+    const input = document.getElementById('depot-filter-input');
+    const items = document.querySelectorAll('.depot-card-item');
+    const empty = document.getElementById('depot-filter-empty');
+
+    if (input) {
+      input.addEventListener('input', (e) => {
+        const q = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        let count = 0;
+        items.forEach((card) => {
+          const hay = card.getAttribute('data-search') || '';
+          const match = !q || hay.includes(q);
+          (card as HTMLElement).style.display = match ? '' : 'none';
+          if (match) count++;
+        });
+        if (empty) empty.style.display = count === 0 ? 'block' : 'none';
+      });
+    }
+  </script>
+
+</Base>

@@ -1,0 +1,20 @@
+{
+  "name": "msrtc-landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Maharashtra State Road Transport Corporation (MSRTC / ST Mahamandal) Bus Timetables, Fares & Contact Directory.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && npm run verify",
+    "preview": "astro preview",
+    "verify": "node scripts/verify-build.mjs",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
+    "deploy": "npx wrangler pages deploy dist --project-name msrtc-landing --commit-dirty=true"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.2.10"
+  }
+}

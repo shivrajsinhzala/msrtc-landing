@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="shieldGrad" x1="6" y1="4" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="roadGrad" x1="24" y1="18" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <!-- Institutional Shield Base -->
+  <path d="M24 4L8 10V22C8 32.5 14.8 42.1 24 44.8C33.2 42.1 40 32.5 40 22V10L24 4Z" fill="url(#shieldGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Inner Highway Road Perspective -->
+  <path d="M19 38L22 18H26L29 38H19Z" fill="url(#roadGrad)"/>
+  <!-- Dashed Center Highway Line -->
+  <line x1="24" y1="21" x2="24" y2="25" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="24" y1="28" x2="24" y2="33" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="24" y1="36" x2="24" y2="38" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Transit Bus Front Silhouetted At Top -->
+  <rect x="19" y="11" width="10" height="7" rx="1.5" fill="#ffffff"/>
+  <rect x="20.5" y="12.5" width="7" height="2.5" rx="0.5" fill="#1e3a8a"/>
+  <!-- Bus Headlights -->
+  <circle cx="21" cy="16.5" r="0.8" fill="#fbbf24"/>
+  <circle cx="27" cy="16.5" r="0.8" fill="#fbbf24"/>
+  <!-- Status Indicator Dot -->
+  <circle cx="34" cy="12" r="2.5" fill="#10b981" stroke="#0f172a" stroke-width="1"/>
+</svg>

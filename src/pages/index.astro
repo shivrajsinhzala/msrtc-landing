@@ -1,0 +1,278 @@
+---
+import Base from '../layouts/Base.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { DEPOTS, depotSlug } from '../data/depots.data.mjs';
+import { ROUTES } from '../data/routes.data.mjs';
+import { GUIDES } from '../data/guides.data.mjs';
+
+const title = 'MSRTC Bus Timetables, Fares & Bus Stand Contact Numbers — Maharashtra ST';
+const description = 'Official public directory of Maharashtra State Road Transport Corporation (MSRTC) bus timetables, ticket prices, Shivneri & Shivshahi schedules, and bus stand inquiry counter phone numbers across Maharashtra.';
+const path = '/';
+
+const popularRoutes = ROUTES.slice(0, 8);
+const totalStands = DEPOTS.reduce((acc, d) => acc + d.stands.length, 0);
+
+const searchDataset = [
+  ...ROUTES.map((r) => ({
+    title: `${r.originCity} to ${r.destinationCity} (${r.fares[0].price})`,
+    sub: `${r.distanceKm} km · ${r.frequency} · ${r.durationHours}`,
+    url: `/routes/${r.slug}`,
+    keywords: `${r.originCity} ${r.destinationCity} bus timetable ticket price fare schedule`,
+  })),
+  ...DEPOTS.map((d) => ({
+    title: `${d.region} Bus Station (${d.stands[0].numbers[0]})`,
+    sub: `${d.stands.length} stands · ${d.region} Division`,
+    url: `/${depotSlug(d.city)}`,
+    keywords: `${d.region} ${d.city} ${d.alsoKnownAs || ''} bus stand contact number enquiry`,
+  })),
+];
+---
+
+<Base title={title} description={description} path={path}>
+
+  <div class="wrap" style="padding-top:2rem;padding-bottom:3.5rem;">
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="text-align:center;max-width:820px;margin:0 auto 2.5rem;">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.35rem 0.85rem;border-radius:999px;background:rgba(217, 56, 30, 0.08);color:#d9381e;font-size:0.8rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1rem;">
+        Maharashtra State Road Transport Corporation
+      </div>
+      <h1 class="hero-title" style="font-size:2.6rem;line-height:1.2;margin-bottom:0.75rem;">
+        MSRTC Bus Timetables, Fares &amp; Station Helplines
+      </h1>
+      <p style="font-size:1.15rem;font-weight:600;color:var(--primary-blue);margin-bottom:0.75rem;">
+        महाराष्ट्र राज्य मार्ग परिवहन महामंडळ (एसटी बस वेळापत्रक व संपर्क)
+      </p>
+      <p class="hero-sub" style="font-size:1.05rem;line-height:1.6;color:var(--slate);margin-bottom:2rem;">
+        Instant departure times, ticket prices, and direct inquiry counter phone lines for Shivneri Volvo, Shivshahi AC, and Ordinary Lal Pari buses across all 20 Maharashtra divisions.
+      </p>
+
+      <!-- Instant National Search Bar -->
+      <div style="position:relative;max-width:620px;margin:0 auto 1.5rem;">
+        <input
+          type="search"
+          id="msrtc-search-input"
+          class="hero-search-input"
+          placeholder="Search route or station (e.g. Pune, Dadar, Shirdi, Nashik)..."
+          aria-label="Search MSRTC bus routes or bus stations"
+          autocomplete="off"
+        />
+        <div id="msrtc-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);max-height:360px;overflow-y:auto;z-index:50;text-align:left;margin-top:0.25rem;"></div>
+      </div>
+
+      <!-- Quick Action Helpline Banner -->
+      <div class="dial-action-strip" style="text-align:left;margin-top:1rem;">
+        <div class="dial-strip-header">
+          <div class="dial-strip-title">MSRTC Central 24x7 Customer Care Desk</div>
+          <div class="dial-strip-sub">Toll-free telephone line for bus inquiries, delay assistance, refunds and passenger grievances</div>
+        </div>
+        <div class="call-button-group">
+          <a class="btn-dial" href="tel:1800221250">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Dial Toll-Free: 1800-22-1250</span>
+          </a>
+          <a class="btn-dial secondary" href="/msrtc-online-ticket-booking">
+            <span>Online Booking Guide</span>
+          </a>
+          <a class="btn-dial secondary" href="/msrtc-bus-fare">
+            <span>Mahila Samman 50% Concession</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Above-The-Fold Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored Advertisement" />
+
+    <!-- Fleet & Metric Strip -->
+    <div class="route-spec-grid" style="margin:2.5rem 0;">
+      <div class="route-spec-cell">
+        <div class="route-spec-label">Transport Divisions</div>
+        <div class="route-spec-value">20 Regions</div>
+      </div>
+      <div class="route-spec-cell">
+        <div class="route-spec-label">Bus Terminals</div>
+        <div class="route-spec-value">{totalStands} Major Stands</div>
+      </div>
+      <div class="route-spec-cell">
+        <div class="route-spec-label">Cataloged Corridors</div>
+        <div class="route-spec-value">{ROUTES.length} Key Routes</div>
+      </div>
+      <div class="route-spec-cell">
+        <div class="route-spec-label">Daily Commuters</div>
+        <div class="route-spec-value" style="color:var(--primary-blue);">6.5M+ Passengers</div>
+      </div>
+    </div>
+
+    <!-- Popular Intercity Routes Section -->
+    <section aria-labelledby="popular-routes-heading" style="margin:3rem 0;">
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title" id="popular-routes-heading" style="font-size:1.65rem;">
+            Popular Maharashtra Bus Timetables &amp; Schedules
+          </h2>
+          <p class="section-subtitle">
+            Point-to-point departure frequencies, operating distance, travel duration, and starting ticket fares:
+          </p>
+        </div>
+        <a class="section-link" href="/routes">
+          <span>All {ROUTES.length} Corridors</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="routes-grid">
+        {popularRoutes.map((r) => (
+          <a class="route-card" href={`/routes/${r.slug}`}>
+            <div>
+              <div class="route-card-header">
+                <span class="route-card-operator">{r.corporation}</span>
+                <span class="route-card-duration">{r.durationHours}</span>
+              </div>
+              <h3 class="route-card-corridor">{r.originCity} ⇄ {r.destinationCity}</h3>
+              <p class="route-card-specs">
+                {r.distanceKm} km via {r.highway} · {r.frequency}
+                <br />
+                First departure: {r.firstBus} · Night: {r.lastBus}
+              </p>
+            </div>
+            <div class="route-card-footer">
+              <span class="route-card-fare">From {r.fares[0].price}</span>
+              <span class="route-card-action">View timetable</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Mid-Content Ad Slot -->
+    <AdSlot slotId="5213571252" label="Advertisement" />
+
+    <!-- Divisional Bus Stations Directory -->
+    <section aria-labelledby="depots-heading" style="margin:3rem 0;">
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title" id="depots-heading" style="font-size:1.65rem;">
+            Maharashtra Transport Divisions &amp; Bus Stands
+          </h2>
+          <p class="section-subtitle">
+            Select a division to view direct inquiry counter phone lines and platform details:
+          </p>
+        </div>
+        <a class="section-link" href="/stations">
+          <span>All 20 Transport Divisions</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="rtc-grid" style="grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));">
+        {DEPOTS.map((d) => {
+          const name = d.alsoKnownAs ? d.region : d.city[0].toUpperCase() + d.city.slice(1);
+          const mainNumber = d.stands[0].numbers[0];
+          return (
+            <a class="rtc-card" href={`/${depotSlug(d.city)}`} aria-label={`${name} bus station contact numbers`}>
+              <div>
+                <div class="rtc-card-top">
+                  <span class="state-chip">{name}</span>
+                  <span style="font-size:0.75rem;font-weight:600;color:var(--slate-muted);">
+                    {d.stands.length} {d.stands.length === 1 ? 'Stand' : 'Stands'}
+                  </span>
+                </div>
+                <h3 class="rtc-card-title">{name} Bus Station</h3>
+                <p style="font-size:0.82rem;color:var(--slate-muted);margin-top:0.2rem;">
+                  {d.region} Transport Division
+                </p>
+              </div>
+              <div class="rtc-card-meta">
+                <span style="font-family:var(--font-mono);font-weight:600;color:var(--primary-blue);">
+                  Desk: {mainNumber}
+                </span>
+                <span style="color:var(--primary-blue);font-weight:600;">Details</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Core Utility Guides Section -->
+    <section aria-labelledby="guides-heading" style="margin:3rem 0;">
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title" id="guides-heading" style="font-size:1.65rem;">
+            MSRTC Travel Guides, Fares &amp; Concessions
+          </h2>
+          <p class="section-subtitle">
+            Essential reference guides on how Maharashtra ST bus tickets, fares, and welfare schemes work:
+          </p>
+        </div>
+      </div>
+
+      <div class="rtc-grid" style="grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));">
+        {GUIDES.map((g) => (
+          <a class="rtc-card" href={`/${g.slug}`}>
+            <div>
+              <h3 class="rtc-card-title">{g.navLabel}</h3>
+              <p style="font-size:0.82rem;color:var(--slate-muted);margin-top:0.35rem;line-height:1.5;">
+                {g.description}
+              </p>
+            </div>
+            <div class="rtc-card-meta">
+              <span style="color:var(--primary-blue);font-weight:600;">Read guide</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Pre-Footer Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored" />
+
+  </div>
+
+  <!-- Client Side Interactive Search Script -->
+  <script define:vars={{ searchDataset }}>
+    const input = document.getElementById('msrtc-search-input');
+    const results = document.getElementById('msrtc-search-results');
+
+    if (input && results) {
+      input.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        if (!q || q.length < 2) {
+          results.style.display = 'none';
+          results.innerHTML = '';
+          return;
+        }
+
+        const matches = searchDataset.filter((item) =>
+          item.title.toLowerCase().includes(q) || item.keywords.toLowerCase().includes(q)
+        ).slice(0, 8);
+
+        if (matches.length === 0) {
+          results.innerHTML = `
+            <div style="padding:1rem;color:var(--slate-muted);font-size:0.88rem;text-align:center;">
+              No matching routes or stations found. Try searching a major city or call 1800-22-1250.
+            </div>
+          `;
+          results.style.display = 'block';
+          return;
+        }
+
+        results.innerHTML = matches.map((m) => `
+          <a href="${m.url}" style="display:block;padding:0.75rem 1rem;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background 0.15s ease;" onmouseover="this.style.background='var(--bg-subtle)'" onmouseout="this.style.background='transparent'">
+            <div style="font-weight:600;font-size:0.95rem;color:var(--ink);">${m.title}</div>
+            <div style="font-size:0.8rem;color:var(--slate);margin-top:0.2rem;">${m.sub}</div>
+          </a>
+        `).join('');
+        results.style.display = 'block';
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+          results.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</Base>

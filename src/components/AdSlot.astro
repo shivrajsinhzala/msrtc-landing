@@ -1,0 +1,19 @@
+---
+interface Props {
+  slotId?: string;
+  label?: string;
+}
+
+const { slotId = '5213571252', label = 'Advertisement' } = Astro.props;
+const AD_CLIENT = 'ca-pub-7164999486301748';
+---
+
+<div class="ad-slot-wrap" aria-label={label}>
+  <p class="ad-label">{label}</p>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client={AD_CLIENT}
+       data-ad-slot={slotId}
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>

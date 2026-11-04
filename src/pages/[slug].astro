@@ -1,0 +1,81 @@
+---
+import DepotPage from '../layouts/DepotPage.astro';
+import GuidePage from '../layouts/GuidePage.astro';
+import { DEPOTS, depotSlug } from '../data/depots.data.mjs';
+import { GUIDES } from '../data/guides.data.mjs';
+
+export function getStaticPaths() {
+  const paths = [];
+
+  // 1. Depot Pages
+  DEPOTS.forEach((depot, i) => {
+    const siblings = [
+      DEPOTS[(i - 1 + DEPOTS.length) % DEPOTS.length],
+      DEPOTS[(i + 1) % DEPOTS.length],
+    ];
+    paths.push({
+      params: { slug: depotSlug(depot.city) },
+      props: {
+        kind: 'depot',
+        depot,
+        siblings,
+      },
+    });
+  });
+
+  // 2. Utility Guide Pages
+  GUIDES.forEach((guide) => {
+    paths.push({
+      params: { slug: guide.slug },
+      props: {
+        kind: 'guide',
+        guide,
+        allGuides: GUIDES,
+      },
+    });
+  });
+
+  return paths;
+}
+
+const props = Astro.props;
+const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+
+let depotView = null;
+let guideView = null;
+
+if (props.kind === 'depot') {
+  const { depot, siblings } = props;
+  depotView = {
+    cityName: depot.alsoKnownAs ? depot.region : cap(depot.city),
+    path: `/${depotSlug(depot.city)}`,
+    siblingLinks: siblings.map((s) => ({
+      href: `/${depotSlug(s.city)}`,
+      label: `${s.alsoKnownAs ? s.region : cap(s.city)} Bus Station Contact`,
+    })),
+  };
+} else {
+  const { guide, allGuides } = props;
+  guideView = {
+    path: `/${guide.slug}`,
+    otherGuides: allGuides
+      .filter((g) => g.slug !== guide.slug)
+      .map((g) => ({ href: `/${g.slug}`, label: g.navLabel })),
+  };
+}
+---
+
+{props.kind === 'depot' ? (
+  <DepotPage
+    depot={props.depot}
+    cityName={depotView.cityName}
+    path={depotView.path}
+    siblingLinks={depotView.siblingLinks}
+  />
+) : (
+  <GuidePage
+    guide={props.guide}
+    path={guideView.path}
+    otherGuides={guideView.otherGuides}
+  />
+)}

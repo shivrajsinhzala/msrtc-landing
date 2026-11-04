@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page Not Found | MSRTC Bus Timetable & ST Info"
+  description="That page does not exist. Browse Maharashtra ST bus timetables, depot contacts, or popular bus routes."
+  path="/404"
+>
+  <main id="main" class="container" style="max-width: 800px; padding: 4rem 1.5rem 6rem;">
+    <div style="background: white; border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+      <span style="display: inline-block; background: #fff1f2; color: var(--brand); font-weight: 800; font-size: 1.25rem; padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1rem;">
+        404 ERROR
+      </span>
+      <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--text);">पृष्ठ सापडले नाही / Page Not Found</h1>
+      <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem;">
+        The timetable or station page you are looking for may have moved or the link was typed incorrectly.
+        You can search or navigate from any of the popular MSRTC resources below.
+      </p>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem;">
+        <a href="/" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-weight: 600;">
+          ← MSRTC Homepage / मुख्यपृष्ठ
+        </a>
+        <a href="/routes" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-weight: 600;">
+          All 30 Intercity Routes / सर्व मार्ग
+        </a>
+        <a href="/stations" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-weight: 600;">
+          20 Division Depots / बस स्थानक संपर्क
+        </a>
+      </div>
+
+      <div style="text-align: left; border-top: 1px solid var(--border); padding-top: 2rem;">
+        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text);">
+          Popular MSRTC ST Guides & Schedules
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem;">
+          <a href="/msrtc-bus-timetable" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            📋 MSRTC Bus Timetable Guide
+          </a>
+          <a href="/msrtc-ticket-booking-online" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            🎟️ Online Ticket Booking Guide
+          </a>
+          <a href="/msrtc-bus-pass-concessions" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            🎫 Mahila Samman & Senior Passes
+          </a>
+          <a href="/msrtc-helpline-enquiry-number" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            📞 24/7 Helpline & Control Room
+          </a>
+          <a href="/routes/pune-to-dadar" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            🚌 Pune to Mumbai Dadar (Shivneri)
+          </a>
+          <a href="/routes/pune-to-nashik" style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--brand); font-weight: 600; background: #fafafa;">
+            🚌 Pune to Nashik ST Timetable
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,365 @@
+---
+import Base from './Base.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { SITE_CONFIG } from '../config/site.mjs';
+
+interface RouteFare {
+  type: string;
+  price: string;
+}
+
+interface RouteInfo {
+  id: string;
+  slug: string;
+  corporation: string;
+  originCity: string;
+  destinationCity: string;
+  originDepotSlug: string;
+  originStandName: string;
+  originStandPhone: string;
+  destinationDepotSlug: string;
+  destinationStandName: string;
+  destinationStandPhone: string;
+  distanceKm: number;
+  durationHours: string;
+  highway: string;
+  frequency: string;
+  firstBus: string;
+  lastBus: string;
+  fares: RouteFare[];
+  highlights: string[];
+  description: string;
+}
+
+interface Props {
+  route: RouteInfo;
+  path: string;
+  siblingRoutes: RouteInfo[];
+}
+
+const { route, path, siblingRoutes } = Astro.props;
+const {
+  originCity,
+  destinationCity,
+  distanceKm,
+  durationHours,
+  highway,
+  frequency,
+  firstBus,
+  lastBus,
+  fares,
+  highlights,
+  description,
+  originStandName,
+  originStandPhone,
+  destinationStandName,
+  destinationStandPhone,
+  originDepotSlug,
+  destinationDepotSlug,
+} = route;
+
+const tel = (n: string) => n.replace(/[^0-9]/g, '');
+
+const title = `${originCity} to ${destinationCity} Bus Timetable, Ticket Price & Schedule — MSRTC`;
+const metaDesc = `MSRTC ${originCity} to ${destinationCity} bus schedule: First bus ${firstBus}, final departure ${lastBus}. Distance ${distanceKm} km (${durationHours}). Fares starting from ${fares[0].price}. Station counter inquiry numbers & online booking details.`;
+
+const breadcrumbs = [
+  { label: 'Routes & Timetables', href: '/routes' },
+  { label: `${originCity} to ${destinationCity}`, href: path },
+];
+
+const faqs = [
+  {
+    q: `What is the scheduled bus frequency from ${originCity} to ${destinationCity}?`,
+    a: `MSRTC buses on the ${originCity} to ${destinationCity} route operate at a scheduled frequency of ${frequency}. The first bus leaves ${originCity} at ${firstBus}, and the final night service departs at ${lastBus}.`,
+  },
+  {
+    q: `What is the ticket fare for ${originCity} to ${destinationCity} MSRTC buses?`,
+    a: `Ticket prices start from ${fares[0].price} for ${fares[0].type} services, and range up to ${fares[fares.length - 1].price} for ${fares[fares.length - 1].type}. Female passengers receive an automatic 50% discount under Mahila Samman Yojana.`,
+  },
+  {
+    q: `What is the travel distance and duration between ${originCity} and ${destinationCity}?`,
+    a: `The road distance between ${originCity} and ${destinationCity} is approximately ${distanceKm} km via ${highway}, taking on average ${durationHours}.`,
+  },
+  {
+    q: `Where does the bus depart from in ${originCity}, and what is the enquiry desk phone?`,
+    a: `Buses depart from ${originStandName}. Passengers can verify platform departures directly with the station counter at ${originStandPhone} or call the statewide MSRTC helpline at 1800-22-1250.`,
+  },
+];
+
+const regionalTerms = `${originCity} ते ${destinationCity} एसटी बस वेळापत्रक, तिकीट दर, पहिली बस, अंतिम बस, शिवशाही बस`;
+const keywords = `${originCity} to ${destinationCity} bus timetable, ${originCity} to ${destinationCity} bus ticket price, ${originCity} to ${destinationCity} msrtc schedule, ${originCity} to ${destinationCity} shivshahi bus, ${regionalTerms}`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BusTrip',
+    name: `${originCity} to ${destinationCity} MSRTC Bus`,
+    description: metaDesc,
+    departureBusStop: {
+      '@type': 'BusStation',
+      name: originStandName,
+      telephone: originStandPhone,
+    },
+    arrivalBusStop: {
+      '@type': 'BusStation',
+      name: destinationStandName,
+      telephone: destinationStandPhone,
+    },
+    provider: {
+      '@type': 'Organization',
+      name: 'Maharashtra State Road Transport Corporation',
+      url: SITE_CONFIG.officialSite,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.a,
+      },
+    })),
+  },
+];
+---
+
+<Base title={title} description={metaDesc} keywords={keywords} path={path} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+
+  <div class="wrap" style="padding-top:1rem;padding-bottom:3rem;">
+
+    <!-- Route Header -->
+    <section style="margin-bottom:2rem;">
+      <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
+        MSRTC Maharashtra ST Schedule · Public Reference
+      </div>
+      <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.4rem;">
+        {originCity} to {destinationCity} Bus Timetable &amp; Fares
+      </h1>
+      <p style="font-size:0.95rem;font-weight:600;color:var(--primary-blue);margin-bottom:0.75rem;">
+        {originCity} ते {destinationCity} एसटी बस वेळापत्रक व तिकीट दर
+      </p>
+      <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
+        Departure frequencies, coach ticket fares, travel duration, and station inquiry desk numbers for <strong>MSRTC (ST Mahamandal)</strong> buses connecting <strong>{originCity}</strong> and <strong>{destinationCity}</strong>.
+      </p>
+
+      <!-- Route Spec Grid -->
+      <div class="route-spec-grid">
+        <div class="route-spec-cell">
+          <div class="route-spec-label">Distance</div>
+          <div class="route-spec-value">{distanceKm} km</div>
+        </div>
+        <div class="route-spec-cell">
+          <div class="route-spec-label">Duration</div>
+          <div class="route-spec-value">{durationHours}</div>
+        </div>
+        <div class="route-spec-cell">
+          <div class="route-spec-label">Frequency</div>
+          <div class="route-spec-value" style="color:var(--primary-blue);">{frequency}</div>
+        </div>
+        <div class="route-spec-cell">
+          <div class="route-spec-label">First Bus</div>
+          <div class="route-spec-value">{firstBus}</div>
+        </div>
+        <div class="route-spec-cell">
+          <div class="route-spec-label">Last Bus</div>
+          <div class="route-spec-value">{lastBus}</div>
+        </div>
+        <div class="route-spec-cell">
+          <div class="route-spec-label">Starting Fare</div>
+          <div class="route-spec-value" style="color:var(--success);">{fares[0].price}</div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="call-button-group" style="margin-top:1.25rem;">
+        <a class="btn-dial" href={`tel:${tel(originStandPhone)}`}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Call {originCity} Counter: {originStandPhone}</span>
+        </a>
+        <a class="btn-dial secondary" href="tel:1800221250">
+          <span>Toll-Free Helpline: 1800-22-1250</span>
+        </a>
+        {originDepotSlug && (
+          <a class="btn-dial secondary" href={`/${originDepotSlug}`}>
+            <span>{originCity} Station Details</span>
+          </a>
+        )}
+        {destinationDepotSlug && (
+          <a class="btn-dial secondary" href={`/${destinationDepotSlug}`}>
+            <span>{destinationCity} Station Details</span>
+          </a>
+        )}
+      </div>
+    </section>
+
+    <!-- Above-The-Fold Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored Advertisement" />
+
+    <!-- Bus Ticket Fare Breakdown -->
+    <section aria-labelledby="fare-table-heading" style="margin:2.5rem 0;">
+      <h2 class="section-title" id="fare-table-heading" style="font-size:1.55rem;margin-bottom:0.35rem;">
+        {originCity} to {destinationCity} Bus Ticket Prices &amp; Categories
+      </h2>
+      <p class="section-subtitle" style="margin-bottom:1rem;">
+        Regulated distance-based fare chart across MSRTC service classes on this corridor:
+      </p>
+
+      <!-- Desktop Table -->
+      <div class="desktop-table-only table-container">
+        <table class="depot-table">
+          <thead>
+            <tr>
+              <th scope="col">Service Category</th>
+              <th scope="col">Estimated One-Way Fare</th>
+              <th scope="col">Comfort &amp; Seating Features</th>
+              <th scope="col">Official Booking</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fares.map((f) => (
+              <tr>
+                <td class="depot-name-cell">
+                  <strong>{f.type}</strong>
+                </td>
+                <td class="depot-number-cell">
+                  <span style="font-size:1.1rem;font-weight:700;color:var(--success);">{f.price}</span>
+                </td>
+                <td style="font-size:0.85rem;color:var(--slate-muted);">
+                  {f.type.toLowerCase().includes('volvo') || f.type.toLowerCase().includes('shivneri')
+                    ? 'AC 2x2 Pushback, Multi-Axle, Charging Ports, Expressway Non-Stop'
+                    : f.type.toLowerCase().includes('shivshahi')
+                    ? 'AC 2x2 Air-Suspension Luxury Coach'
+                    : 'Standard 3x2 Parivartan Express Seating'}
+                </td>
+                <td>
+                  <a class="btn-dial secondary" href="https://npublic.msrtcors.com" target="_blank" rel="noopener noreferrer" style="padding:0.35rem 0.75rem;font-size:0.78rem;">
+                    Book Online
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Cards -->
+      <div class="mobile-cards-only" style="margin:1rem 0;">
+        {fares.map((f) => (
+          <div class="rtc-card" style="padding:1rem;min-height:auto;margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+              <strong style="font-size:1.05rem;color:var(--ink);">{f.type}</strong>
+              <span style="font-size:1.2rem;font-weight:700;color:var(--success);">{f.price}</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--slate-muted);margin-bottom:0.75rem;">
+              {f.type.toLowerCase().includes('volvo') || f.type.toLowerCase().includes('shivneri')
+                ? 'AC 2x2 Pushback, Multi-Axle, Charging Ports, Expressway Non-Stop'
+                : f.type.toLowerCase().includes('shivshahi')
+                ? 'AC 2x2 Air-Suspension Luxury Coach'
+                : 'Standard 3x2 Parivartan Express Seating'}
+            </p>
+            <a class="btn-dial secondary" href="https://npublic.msrtcors.com" target="_blank" rel="noopener noreferrer" style="width:100%;justify-content:center;font-size:0.82rem;">
+              Book on MSRTC Official Portal
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Corridor Overview & Travel Guide -->
+    <section style="margin:2.5rem 0;">
+      <h2 class="section-title" style="font-size:1.55rem;margin-bottom:0.5rem;">
+        Corridor Information &amp; Station Details
+      </h2>
+      <p style="font-size:0.95rem;line-height:1.7;color:var(--slate);margin-bottom:1.5rem;">
+        {description}
+      </p>
+
+      {highlights.length > 0 && (
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+          <h3 style="font-size:1rem;margin-bottom:0.75rem;color:var(--ink);">Key Journey Highlights</h3>
+          <ul style="margin:0;padding-left:1.25rem;color:var(--slate);font-size:0.9rem;line-height:1.7;">
+            {highlights.map((h) => (
+              <li>{h}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Terminal Enquiry Phone Numbers Strip -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1rem;margin:1.5rem 0;">
+        <div class="card" style="margin:0;">
+          <p style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;">Origin Departure Terminal</p>
+          <h3 style="font-size:1.15rem;margin:0.25rem 0 0.5rem;">{originStandName}</h3>
+          <p style="font-size:0.88rem;color:var(--slate);margin-bottom:0.75rem;">Enquiry Counter Desk</p>
+          <a class="btn-dial" href={`tel:${tel(originStandPhone)}`} style="font-size:0.85rem;">
+            Call {originStandPhone}
+          </a>
+        </div>
+        <div class="card" style="margin:0;">
+          <p style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;">Arrival Destination Terminal</p>
+          <h3 style="font-size:1.15rem;margin:0.25rem 0 0.5rem;">{destinationStandName}</h3>
+          <p style="font-size:0.88rem;color:var(--slate);margin-bottom:0.75rem;">Arrival Inquiry Desk</p>
+          <a class="btn-dial" href={`tel:${tel(destinationStandPhone)}`} style="font-size:0.85rem;">
+            Call {destinationStandPhone}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mid-Content Ad Slot -->
+    <AdSlot slotId="5213571252" label="Advertisement" />
+
+    <!-- Frequently Asked Questions -->
+    <section aria-labelledby="faq-heading" style="margin:2.5rem 0;">
+      <h2 class="section-title" id="faq-heading" style="font-size:1.55rem;margin-bottom:1rem;">
+        Frequently Asked Questions — {originCity} to {destinationCity}
+      </h2>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        {faqs.map((f) => (
+          <div class="card" style="margin:0;">
+            <h3 style="font-size:1.02rem;margin-bottom:0.35rem;color:var(--ink);">{f.q}</h3>
+            <p style="font-size:0.9rem;line-height:1.6;color:var(--slate);margin:0;">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Pre-Footer Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored" />
+
+    <!-- Sibling Routes Grid -->
+    {siblingRoutes.length > 0 && (
+      <section style="margin:2.5rem 0;">
+        <h2 class="section-title" style="font-size:1.35rem;margin-bottom:1rem;">
+          More Popular Maharashtra Bus Schedules
+        </h2>
+        <div class="routes-grid">
+          {siblingRoutes.slice(0, 6).map((s) => (
+            <a class="route-card" href={`/routes/${s.slug}`}>
+              <div>
+                <div class="route-card-header">
+                  <span class="route-card-operator">{s.corporation}</span>
+                  <span class="route-card-duration">{s.durationHours}</span>
+                </div>
+                <h3 class="route-card-corridor">{s.originCity} ⇄ {s.destinationCity}</h3>
+                <p class="route-card-specs">
+                  {s.distanceKm} km · {s.frequency}
+                </p>
+              </div>
+              <div class="route-card-footer">
+                <span class="route-card-fare">From {s.fares[0].price}</span>
+                <span class="route-card-action">View timetable</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+
+</Base>

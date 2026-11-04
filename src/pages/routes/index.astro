@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { ROUTES } from '../../data/routes.data.mjs';
+
+const title = 'MSRTC Bus Timetables & Schedules Directory — All 30 Maharashtra Routes';
+const description = 'Complete directory of MSRTC intercity bus schedules, departure timings, ticket prices, and travel duration across 30 major corridors in Maharashtra.';
+const path = '/routes';
+
+const breadcrumbs = [
+  { label: 'Bus Timetables', href: path },
+];
+---
+
+<Base title={title} description={description} path={path} breadcrumbs={breadcrumbs}>
+
+  <div class="wrap" style="padding-top:1.5rem;padding-bottom:3.5rem;">
+
+    <header style="margin-bottom:2rem;">
+      <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
+        Maharashtra State Transport · Intercity Network
+      </div>
+      <h1 class="section-title" style="font-size:2.25rem;margin-bottom:0.4rem;">
+        MSRTC Bus Timetables &amp; Routes Directory
+      </h1>
+      <p style="font-size:0.95rem;font-weight:600;color:var(--primary-blue);margin-bottom:0.75rem;">
+        महाराष्ट्र एसटी बस वेळापत्रक व संपूर्ण मार्ग सूची
+      </p>
+      <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
+        Browse point-to-point departure frequencies, operating distance, night services, and starting fares for all <strong>{ROUTES.length} key intercity corridors</strong> in Maharashtra.
+      </p>
+
+      <!-- Instant Filter Input -->
+      <div style="position:relative;margin:1.5rem 0 1rem;">
+        <input
+          type="search"
+          id="route-filter-input"
+          class="hero-search-input"
+          placeholder="Filter routes (e.g. Pune, Mumbai, Shirdi, Nashik, Kolhapur)..."
+          aria-label="Filter MSRTC routes"
+          autocomplete="off"
+        />
+        <div id="route-filter-empty" style="display:none;padding:1.5rem;text-align:center;color:var(--slate-muted);background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:0.5rem;">
+          <p style="font-weight:600;color:var(--ink);">No routes matched your filter</p>
+          <p style="font-size:0.85rem;margin-top:0.25rem;">Try another city name or call the 24x7 helpline at 1800-22-1250</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Above-The-Fold Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored Advertisement" />
+
+    <!-- Routes Grid -->
+    <div id="routes-container" class="routes-grid" style="margin:2.5rem 0;">
+      {ROUTES.map((r) => {
+        const searchKeywords = `${r.originCity} ${r.destinationCity} ${r.highway} ${r.corporation}`.toLowerCase();
+        return (
+          <a class="route-card route-card-item" href={`/routes/${r.slug}`} data-search={searchKeywords}>
+            <div>
+              <div class="route-card-header">
+                <span class="route-card-operator">{r.corporation}</span>
+                <span class="route-card-duration">{r.durationHours}</span>
+              </div>
+              <h2 class="route-card-corridor" style="font-size:1.2rem;">{r.originCity} ⇄ {r.destinationCity}</h2>
+              <p class="route-card-specs">
+                {r.distanceKm} km via {r.highway} · {r.frequency}
+                <br />
+                First: {r.firstBus} · Last: {r.lastBus}
+              </p>
+            </div>
+            <div class="route-card-footer">
+              <span class="route-card-fare">From {r.fares[0].price}</span>
+              <span class="route-card-action">View timetable</span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Mid-Content Ad Slot -->
+    <AdSlot slotId="5213571252" label="Advertisement" />
+
+    <!-- Pre-Footer Ad Slot -->
+    <AdSlot slotId="5213571252" label="Sponsored" />
+
+  </div>
+
+  <script>
+    const input = document.getElementById('route-filter-input');
+    const items = document.querySelectorAll('.route-card-item');
+    const empty = document.getElementById('route-filter-empty');
+
+    if (input) {
+      input.addEventListener('input', (e) => {
+        const q = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        let count = 0;
+        items.forEach((card) => {
+          const hay = card.getAttribute('data-search') || '';
+          const match = !q || hay.includes(q);
+          (card as HTMLElement).style.display = match ? '' : 'none';
+          if (match) count++;
+        });
+        if (empty) empty.style.display = count === 0 ? 'block' : 'none';
+      });
+    }
+  </script>
+
+</Base>

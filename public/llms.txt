@@ -1,0 +1,30 @@
+# MSRTC Bus Info — Maharashtra State Road Transport Corporation
+
+> Public transportation enquiry directory, station master contact numbers, and intercity bus route schedules for Maharashtra State Road Transport Corporation (MSRTC / ST Mahamandal).
+
+MSRTC operates over 16,000 buses across 250+ depots in Maharashtra, serving over 6.5 million passengers daily across iconic services: Shivneri Volvo AC, E-Shivneri Electric, Shivshahi AC, Hirkani Asiad Semi-Luxury, and Parivartan (Lal Pari) Ordinary Express.
+
+## Core Helplines & Contact Desks
+- Statewide 24x7 Customer Care: 1800-22-1250 (Toll-Free)
+- Mumbai Central ST Depot: 022-23024074
+- Pune Swargate Bus Station: 020-24449980
+- Pune Shivajinagar Bus Station: 020-25536970
+- Nashik CBS Thakkar Bazar: 0253-2309308
+- Chhatrapati Sambhajinagar CBS: 0240-2240184
+- Nagpur Ganeshpeth Central Stand: 0712-2726221
+- Kolhapur CBS Bus Station: 0231-2650620
+
+## Key Intercity Corridors
+- [Pune to Mumbai (Shivneri AC)](https://msrtc.shivrajsinh.in/routes/pune-to-mumbai-bus-time-table) — Every 15 mins (24x7) via Expressway
+- [Mumbai to Pune (Shivneri AC)](https://msrtc.shivrajsinh.in/routes/mumbai-to-pune-bus-time-table) — Every 15 mins (24x7)
+- [Pune to Shirdi](https://msrtc.shivrajsinh.in/routes/pune-to-shirdi-bus-time-table) — Every 30 mins
+- [Mumbai to Shirdi](https://msrtc.shivrajsinh.in/routes/mumbai-to-shirdi-bus-time-table) — Hourly via Samruddhi / Kasara
+- [Pune to Nashik](https://msrtc.shivrajsinh.in/routes/pune-to-nashik-bus-time-table) — Every 30 mins
+- [Kolhapur to Pune](https://msrtc.shivrajsinh.in/routes/kolhapur-to-pune-bus-time-table) — Every 20 mins via NH-48
+
+## Government Concessions & Welfare Schemes
+- Mahila Samman Yojana: 50% fare concession for all women passengers statewide.
+- Amrit Varishtha Nagrik Yojana: 100% free travel for senior citizens aged 75 and above; 50% discount for ages 65-74.
+
+## Sourcing
+Official MSRTC disclosures at msrtc.maharashtra.gov.in and online reservation portal npublic.msrtcors.com.
