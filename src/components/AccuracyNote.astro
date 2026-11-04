@@ -1,0 +1,23 @@
+---
+import { LAST_UPDATED, FARE_REVISION, SITE_CONFIG } from '../config/site.mjs';
+
+interface Props {
+  /** Pages quoting rupee fares also state that those fares may predate the latest revision. */
+  fares?: boolean;
+}
+
+const { fares = false } = Astro.props;
+const displayDate = new Date(`${LAST_UPDATED}T00:00:00Z`).toLocaleDateString('en-IN', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<aside class="card" style="margin:1.25rem 0;font-size:0.88rem;line-height:1.6;color:var(--slate);" aria-label="Accuracy note">
+  <p style="margin:0 0 0.35rem;"><strong>Last updated <time datetime={LAST_UPDATED}>{displayDate}</time>.</strong> This is an independent guide, not an MSRTC website. Numbers and timings can change, so confirm them on the <a href={SITE_CONFIG.bookingPortal} target="_blank" rel="noopener noreferrer">MSRTC reservation portal</a> or on the helpline <a href="tel:1800221250">1800-22-1250</a> before you travel. <a href="/about">How this site is compiled</a>.</p>
+  {fares && (
+    <p style="margin:0;"><strong>Fares are indicative and may be out of date.</strong> They may not include the {FARE_REVISION.label} (<a href={FARE_REVISION.sourceUrl} target="_blank" rel="noopener noreferrer">{FARE_REVISION.sourceName}</a>). The portal shows the current fare for your date.</p>
+  )}
+</aside>

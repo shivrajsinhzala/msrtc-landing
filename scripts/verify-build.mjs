@@ -163,6 +163,48 @@ if (!fs.existsSync(robotsFile) || !fs.readFileSync(robotsFile, 'utf8').includes(
   pass('robots.txt points to sitemap-index.xml');
 }
 
+// 7. Google Analytics tag on every built page, and no false 'official' self-labels
+const htmlFiles = [];
+const walk = (dir) => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full);
+    else if (entry.name.endsWith('.html')) htmlFiles.push(full);
+  }
+};
+walk(DIST);
+
+const FALSE_LABELS = ['Official Utility Guide', 'Verified Directory', 'Official public directory'];
+let tagIssues = 0;
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, 'utf8');
+  if (!html.includes('googletagmanager.com/gtag/js?id=G-TNMT12SWTM')) {
+    fail(`${path.relative(DIST, file)} missing Google Analytics tag`);
+    tagIssues++;
+  }
+  for (const label of FALSE_LABELS) {
+    if (html.includes(label)) {
+      fail(`${path.relative(DIST, file)} contains the label "${label}"`);
+      tagIssues++;
+    }
+  }
+}
+if (!tagIssues) pass(`All ${htmlFiles.length} HTML pages carry the GA4 tag and no false official labels`);
+
+// 8. Internal links resolve to a built page or file
+let brokenLinks = 0;
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, 'utf8');
+  for (const [, href] of html.matchAll(/<a\b[^>]*href="(\/[^"#?]*)/g)) {
+    const target = href === '/' ? path.join(DIST, 'index.html') : path.join(DIST, href);
+    if (!fs.existsSync(target) && !fs.existsSync(`${target}.html`)) {
+      fail(`${path.relative(DIST, file)} links to missing page ${href}`);
+      brokenLinks++;
+    }
+  }
+}
+if (!brokenLinks) pass('All internal links resolve');
+
 if (failures > 0) {
   console.error(`\nBuild verification failed with ${failures} error(s).`);
   process.exit(1);

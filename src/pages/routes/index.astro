@@ -3,8 +3,8 @@ import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { ROUTES } from '../../data/routes.data.mjs';
 
-const title = 'MSRTC Bus Timetables & Schedules Directory — All 30 Maharashtra Routes';
-const description = 'Complete directory of MSRTC intercity bus schedules, departure timings, ticket prices, and travel duration across 30 major corridors in Maharashtra.';
+const title = 'MSRTC Bus Timetables: 30 Popular Maharashtra Routes';
+const description = 'Directory of 30 popular MSRTC intercity routes in Maharashtra, with indicative departure timings, fares, travel time and enquiry numbers.';
 const path = '/routes';
 
 const breadcrumbs = [
@@ -69,7 +69,7 @@ const breadcrumbs = [
               </p>
             </div>
             <div class="route-card-footer">
-              <span class="route-card-fare">From {r.fares[0].price}</span>
+              <span class="route-card-fare">Approx. from {r.fares[0].price}</span>
               <span class="route-card-action">View timetable</span>
             </div>
           </a>

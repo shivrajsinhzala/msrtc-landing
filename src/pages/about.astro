@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import AccuracyNote from '../components/AccuracyNote.astro';
+import { SITE_CONFIG, FARE_REVISION } from '../config/site.mjs';
+
+const title = 'About MSRTC ST Bus Info: Sources & Accuracy';
+const description = 'Who runs MSRTC ST Bus Info, where its bus stand numbers, timings and fares come from, how accurate they are, and how to report a correction.';
+const path = '/about';
+const breadcrumbs = [{ label: 'About', href: path }];
+---
+
+<Base title={title} description={description} path={path} breadcrumbs={breadcrumbs}>
+
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem;max-width:800px;">
+    <h1 class="section-title" style="font-size:2.2rem;margin-bottom:1.5rem;">About MSRTC ST Bus Info</h1>
+
+    <div class="guide-content-article" style="line-height:1.75;font-size:1rem;color:var(--ink);">
+      <p>MSRTC ST Bus Info is an independent guide to Maharashtra's state-run buses, built and maintained by <a href="https://shivrajsinh.in" rel="noopener">Shivrajsinh</a>. It is not owned, operated or endorsed by the {SITE_CONFIG.corporationFull} (MSRTC), and it does not sell tickets.</p>
+
+      <h2>Where the information comes from</h2>
+      <ul>
+        <li><strong>Bus stand phone numbers:</strong> publicly available listings. They have not all been test-called, and some landlines may be unanswered or out of date.</li>
+        <li><strong>Timings and frequencies:</strong> indicative references for planning. This site has no live feed from MSRTC, so they are not an official schedule.</li>
+        <li><strong>Fares:</strong> indicative one-way amounts. They may not include the {FARE_REVISION.label} (<a href={FARE_REVISION.sourceUrl} target="_blank" rel="noopener noreferrer">{FARE_REVISION.sourceName}</a>).</li>
+      </ul>
+
+      <h2>Where to confirm before you travel</h2>
+      <ul>
+        <li>Official website: <a href={SITE_CONFIG.officialSite} target="_blank" rel="noopener noreferrer">msrtc.maharashtra.gov.in</a></li>
+        <li>Online reservation portal: <a href={SITE_CONFIG.bookingPortal} target="_blank" rel="noopener noreferrer">npublic.msrtcors.com</a></li>
+        <li>MSRTC toll-free helpline: <a href="tel:1800221250">1800-22-1250</a></li>
+      </ul>
+
+      <h2>Corrections</h2>
+      <p>Found a wrong number, timing or fare? Email <code>privacy@shivrajsinh.in</code> with the page address and the correct detail. For complaints about a bus, a ticket or a refund, contact MSRTC directly, because this site cannot act on them.</p>
+
+      <h2>Advertising and analytics</h2>
+      <p>This site uses Google AdSense and Google Analytics. See the <a href="/privacy">privacy policy</a> for details.</p>
+    </div>
+
+    <AccuracyNote fares />
+  </div>
+
+</Base>

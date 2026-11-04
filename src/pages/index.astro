@@ -1,13 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
 import AdSlot from '../components/AdSlot.astro';
+import AccuracyNote from '../components/AccuracyNote.astro';
 import { DEPOTS, depotSlug } from '../data/depots.data.mjs';
 import { ROUTES } from '../data/routes.data.mjs';
 import { GUIDES } from '../data/guides.data.mjs';
+import { FARE_REVISION } from '../config/site.mjs';
 
-const title = 'MSRTC Bus Timetables, Fares & Bus Stand Contact Numbers — Maharashtra ST';
-const description = 'Official public directory of Maharashtra State Road Transport Corporation (MSRTC) bus timetables, ticket prices, Shivneri & Shivshahi schedules, and bus stand inquiry counter phone numbers across Maharashtra.';
+const title = 'MSRTC Bus Timetable, Fares & Bus Stand Numbers | Maharashtra';
+const description = 'Independent guide to MSRTC buses: Maharashtra ST route timetables, indicative fares, Shivneri and Shivshahi services, and bus stand enquiry numbers.';
 const path = '/';
+
+const faqs = [
+  {
+    q: 'What is MSRTC?',
+    a: 'MSRTC, the Maharashtra State Road Transport Corporation, is the state-run bus operator of Maharashtra, also known as ST Mahamandal. It runs over 14,000 buses and carries more than 55 lakh passengers a day, according to a July 2026 PTI report.',
+  },
+  {
+    q: 'What is the MSRTC helpline number?',
+    a: 'The MSRTC toll-free helpline is 1800-22-1250. Use it for bus enquiries, refunds and complaints.',
+  },
+  {
+    q: 'How do I book an MSRTC bus ticket online?',
+    a: 'Book on the official reservation portal npublic.msrtcors.com or the MSRTC Bus Reservation mobile app. This site does not sell tickets.',
+  },
+  {
+    q: 'Did MSRTC bus fares go up in 2026?',
+    a: 'Yes. The State Transport Authority approved a 13.56% MSRTC fare hike effective 18 July 2026. Check the reservation portal for the current fare on your route.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
 
 const popularRoutes = ROUTES.slice(0, 8);
 const totalStands = DEPOTS.reduce((acc, d) => acc + d.stands.length, 0);
@@ -28,14 +61,14 @@ const searchDataset = [
 ];
 ---
 
-<Base title={title} description={description} path={path}>
+<Base title={title} description={description} path={path} jsonLd={jsonLd}>
 
   <div class="wrap" style="padding-top:2rem;padding-bottom:3.5rem;">
 
     <!-- Hero Section -->
     <section class="hero-section" style="text-align:center;max-width:820px;margin:0 auto 2.5rem;">
       <div style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.35rem 0.85rem;border-radius:999px;background:rgba(217, 56, 30, 0.08);color:#d9381e;font-size:0.8rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1rem;">
-        Maharashtra State Road Transport Corporation
+        Independent guide to MSRTC buses
       </div>
       <h1 class="hero-title" style="font-size:2.6rem;line-height:1.2;margin-bottom:0.75rem;">
         MSRTC Bus Timetables, Fares &amp; Station Helplines
@@ -44,7 +77,7 @@ const searchDataset = [
         महाराष्ट्र राज्य मार्ग परिवहन महामंडळ (एसटी बस वेळापत्रक व संपर्क)
       </p>
       <p class="hero-sub" style="font-size:1.05rem;line-height:1.6;color:var(--slate);margin-bottom:2rem;">
-        Instant departure times, ticket prices, and direct inquiry counter phone lines for Shivneri Volvo, Shivshahi AC, and Ordinary Lal Pari buses across all 20 Maharashtra divisions.
+        Indicative departure times and ticket prices, plus enquiry counter phone lines, for Shivneri Volvo, Shivshahi AC and Ordinary Lal Pari buses across 20 major Maharashtra regions.
       </p>
 
       <!-- Instant National Search Bar -->
@@ -87,7 +120,7 @@ const searchDataset = [
     <!-- Fleet & Metric Strip -->
     <div class="route-spec-grid" style="margin:2.5rem 0;">
       <div class="route-spec-cell">
-        <div class="route-spec-label">Transport Divisions</div>
+        <div class="route-spec-label">Regions Covered</div>
         <div class="route-spec-value">20 Regions</div>
       </div>
       <div class="route-spec-cell">
@@ -99,8 +132,8 @@ const searchDataset = [
         <div class="route-spec-value">{ROUTES.length} Key Routes</div>
       </div>
       <div class="route-spec-cell">
-        <div class="route-spec-label">Daily Commuters</div>
-        <div class="route-spec-value" style="color:var(--primary-blue);">6.5M+ Passengers</div>
+        <div class="route-spec-label">MSRTC Daily Passengers</div>
+        <div class="route-spec-value" style="color:var(--primary-blue);">55 Lakh+</div>
       </div>
     </div>
 
@@ -137,7 +170,7 @@ const searchDataset = [
               </p>
             </div>
             <div class="route-card-footer">
-              <span class="route-card-fare">From {r.fares[0].price}</span>
+              <span class="route-card-fare">Approx. from {r.fares[0].price}</span>
               <span class="route-card-action">View timetable</span>
             </div>
           </a>
@@ -160,7 +193,7 @@ const searchDataset = [
           </p>
         </div>
         <a class="section-link" href="/stations">
-          <span>All 20 Transport Divisions</span>
+          <span>All 20 Listed Regions</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
@@ -223,6 +256,25 @@ const searchDataset = [
           </a>
         ))}
       </div>
+    </section>
+
+    <!-- Direct answers for search and AI assistants -->
+    <section aria-labelledby="home-faq-heading" style="margin:3rem 0;">
+      <h2 class="section-title" id="home-faq-heading" style="font-size:1.65rem;margin-bottom:1rem;">
+        MSRTC Questions, Answered
+      </h2>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        {faqs.map((f) => (
+          <div class="card" style="margin:0;">
+            <h3 style="font-size:1.02rem;margin-bottom:0.35rem;color:var(--ink);">{f.q}</h3>
+            <p style="font-size:0.9rem;line-height:1.6;color:var(--slate);margin:0;">{f.a}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-size:0.85rem;color:var(--slate-muted);margin-top:0.75rem;">
+        Source for fleet, passenger and fare figures: <a href={FARE_REVISION.sourceUrl} target="_blank" rel="noopener noreferrer">{FARE_REVISION.sourceName}</a>.
+      </p>
+      <AccuracyNote fares />
     </section>
 
     <!-- Pre-Footer Ad Slot -->

@@ -1,5 +1,5 @@
 ---
-import { SITE, SITE_CONFIG } from '../config/site.mjs';
+import { SITE, SITE_CONFIG, LAST_UPDATED } from '../config/site.mjs';
 import '../styles/global.css';
 
 interface Props {
@@ -23,43 +23,72 @@ const {
 } = Astro.props;
 
 const AD_CLIENT = SITE_CONFIG.adClient;
+const GA_ID = SITE_CONFIG.gaId;
 const canonical = `${SITE}${path}`;
+const shareImage = `${SITE}/images/hero-msrtc.jpg`;
+
+// The bus operator is its own entity: this site is an independent publisher that writes about it.
+const msrtcEntity = {
+  '@type': 'GovernmentOrganization',
+  '@id': `${SITE}/#msrtc`,
+  name: SITE_CONFIG.corporationFull,
+  alternateName: ['MSRTC', 'ST Mahamandal', 'महाराष्ट्र राज्य मार्ग परिवहन महामंडळ'],
+  url: SITE_CONFIG.officialSite,
+  areaServed: 'Maharashtra, India',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '1800-22-1250',
+    contactType: 'customer support',
+    areaServed: 'IN-MH',
+  },
+};
 
 const baseJsonLd: unknown[] = [
   {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    '@type': 'Organization',
+    '@id': `${SITE}/#publisher`,
     name: 'MSRTC ST Bus Info',
     url: `${SITE}/`,
-    description: 'Maharashtra State Road Transport Corporation (MSRTC) Bus Timetables, Fares, Helpline & Bus Stand Contact Directory.',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${SITE}/?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
+    logo: `${SITE}/icons/icon-512.png`,
+    description: 'Independent passenger guide to MSRTC buses. Not affiliated with Maharashtra State Road Transport Corporation.',
   },
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'WebSite',
+    '@id': `${SITE}/#website`,
     name: 'MSRTC ST Bus Info',
     url: `${SITE}/`,
-    logo: `${SITE}/icons/logo.svg`,
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        telephone: '1800-22-1250',
-        contactType: 'MSRTC Central Customer Support',
-        areaServed: 'IN-MH',
-        availableLanguage: ['Marathi', 'Hindi', 'English'],
-      },
-      {
-        '@type': 'ContactPoint',
-        telephone: '112',
-        contactType: 'National Emergency Service',
-        areaServed: 'IN',
-      },
-    ],
+    description: 'Independent guide to MSRTC bus timetables, fares, the helpline and bus stand contact numbers.',
+    inLanguage: htmlLang,
+    publisher: { '@id': `${SITE}/#publisher` },
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: htmlLang,
+    dateModified: LAST_UPDATED,
+    isPartOf: { '@id': `${SITE}/#website` },
+    publisher: { '@id': `${SITE}/#publisher` },
+    about: msrtcEntity,
+    primaryImageOfPage: shareImage,
+  },
+  ...(breadcrumbs.length > 0
+    ? [{
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [{ label: 'Home', href: '/' }, ...breadcrumbs].map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: b.label,
+          item: `${SITE}${b.href === '/' ? '/' : b.href}`,
+        })),
+      }]
+    : []),
   ...jsonLd,
 ];
 ---
@@ -73,6 +102,10 @@ const baseJsonLd: unknown[] = [
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords} />
 <meta name="google-adsense-account" content={AD_CLIENT} />
+
+<!-- Google Analytics 4 -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+<script is:inline define:vars={{ GA_ID }}>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', GA_ID);</script>
 
 <!-- Google Fonts: Space Grotesk (Display), DM Sans (Body), DM Mono (Metadata) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -92,12 +125,17 @@ const baseJsonLd: unknown[] = [
 <meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={`${SITE}/icons/logo.svg`} />
+<meta property="og:locale" content="en_IN" />
+<meta property="og:image" content={shareImage} />
+<meta property="og:image:width" content="1400" />
+<meta property="og:image:height" content="781" />
+<meta property="og:image:alt" content="Illustration of a red MSRTC Shivshahi bus on a Maharashtra ghat road" />
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={shareImage} />
 
 <!-- Theme Colors & Favicons -->
 <meta name="theme-color" content="#152339" />
@@ -128,7 +166,7 @@ const baseJsonLd: unknown[] = [
         <rect y="10.67" width="24" height="5.33" fill="#138808"/>
         <circle cx="12" cy="8" r="2.2" stroke="#000080" stroke-width="0.7"/>
       </svg>
-      <span>MSRTC Maharashtra ST State Transport Directory · Public Utility Reference</span>
+      <span>Independent MSRTC bus guide · Not an official MSRTC website</span>
     </div>
     <div class="utility-emergency-links">
       <a class="utility-tel-link" href="tel:1800221250">Helpline: 1800-22-1250</a>
@@ -180,7 +218,7 @@ const baseJsonLd: unknown[] = [
     <nav class="wrap mobile-nav-links" aria-label="Mobile Navigation">
       <a href="/" class="mobile-nav-item">Home Directory</a>
       <a href="/routes" class="mobile-nav-item">Bus Timetables &amp; Routes (30)</a>
-      <a href="/stations" class="mobile-nav-item">Bus Stands &amp; Divisions (20)</a>
+      <a href="/stations" class="mobile-nav-item">Bus Stands &amp; Regions (20)</a>
       <a href="/msrtc-bus-fare" class="mobile-nav-item">Bus Fares &amp; Concessions</a>
       <a href="/msrtc-online-ticket-booking" class="mobile-nav-item">Online Ticket Booking</a>
       <a href="/msrtc-helpline-number" class="mobile-nav-item">24x7 Helpline &amp; Grievances</a>
@@ -229,7 +267,7 @@ const baseJsonLd: unknown[] = [
         <span>MSRTC ST Bus Info</span>
       </div>
       <p class="footer-brand-desc">
-        Independent public passenger transport directory compiled from published MSRTC records. Commuters can quickly verify bus stand enquiry counter numbers, station master control desks, Shivneri and Shivshahi intercity schedules, and welfare concessions across Maharashtra.
+        Independent passenger guide compiled from publicly available MSRTC information. Find bus stand enquiry numbers, Shivneri and Shivshahi route references, and welfare concessions across Maharashtra.
       </p>
     </div>
 
@@ -240,8 +278,8 @@ const baseJsonLd: unknown[] = [
         <li><a href="/msrtc-bus-fare">MSRTC Bus Fare &amp; Concessions</a></li>
         <li><a href="/msrtc-online-ticket-booking">Online Ticket Booking</a></li>
         <li><a href="/msrtc-helpline-number">24x7 Customer Care</a></li>
-        <li><a href="/routes">All 30 Bus Routes</a></li>
-        <li><a href="/stations">All 20 Transport Divisions</a></li>
+        <li><a href="/routes">30 Popular Bus Routes</a></li>
+        <li><a href="/stations">20 Major Regions</a></li>
       </ul>
     </div>
 
@@ -264,6 +302,7 @@ const baseJsonLd: unknown[] = [
         <li><a href="https://rtc.shivrajsinh.in" target="_blank" rel="noopener">National RTC Directory</a></li>
         <li><a href="https://gsrtc.shivrajsinh.in" target="_blank" rel="noopener">GSRTC Gujarat ST Info</a></li>
         <li><a href="https://transit.shivrajsinh.in" target="_blank" rel="noopener">Stopwatch Transit (123 Systems)</a></li>
+        <li><a href="/about">About This Site</a></li>
         <li><a href="/privacy">Privacy Policy</a></li>
         <li><a href="/sitemap-index.xml">Sitemap XML</a></li>
       </ul>

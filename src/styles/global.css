@@ -54,6 +54,12 @@
 
   /* Touch Target Floor */
   --touch-target: 44px;
+
+  /* Names used by page markup */
+  --slate: var(--ink-secondary);
+  --text: var(--ink);
+  --text-muted: var(--slate-muted);
+  --brand: #d9381e;
 }
 
 /* ------------------------------------------------------------------ Reset & Base */
@@ -1390,6 +1396,290 @@ header.site-header {
 
 .sibling-link:hover {
   background: #E2E8F0;
+}
+
+/* ------------------------------------------------------------------ Page Markup Components
+   Rules for the class names the layouts actually render. */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: var(--touch-target);
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: var(--brand);
+  flex-shrink: 0;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-link .brand-title {
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  font-size: 0.72rem;
+  color: var(--slate-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.desktop-nav .nav-link {
+  font-size: 0.86rem;
+  padding: 0.5rem;
+  white-space: nowrap;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-primary-dial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--touch-target);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--primary-blue);
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.18s ease;
+}
+
+.btn-primary-dial:hover {
+  background: var(--primary-blue-hover);
+}
+
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  width: var(--touch-target);
+  height: var(--touch-target);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.mobile-toggle .icon-close,
+.mobile-toggle[aria-expanded="true"] .icon-menu {
+  display: none;
+}
+
+.mobile-toggle[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+.mobile-drawer {
+  display: none;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 0 1.25rem;
+  max-height: calc(100vh - 4.5rem);
+  overflow-y: auto;
+}
+
+.mobile-drawer.open {
+  display: block;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-item {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.65rem 0.25rem;
+  border-bottom: 1px solid var(--border);
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-bar {
+  padding: 0.85rem 0 0;
+  font-size: 0.82rem;
+  color: var(--slate-muted);
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  gap: 0.45rem;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.breadcrumb-item a {
+  color: var(--slate-muted);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}
+
+.breadcrumb-item [aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.breadcrumb-sep {
+  color: var(--ink-faint);
+  user-select: none;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1.25rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-subtle);
+}
+
+.ad-slot-wrap {
+  margin: 1.75rem 0;
+}
+
+.ad-slot-wrap:has(ins[data-ad-status="unfilled"]) {
+  display: none;
+}
+
+.ad-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+/* Long-form text: guides, About and Privacy */
+.guide-content-article > * + * {
+  margin-top: 1rem;
+}
+
+.guide-content-article h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin-top: 2rem;
+}
+
+.guide-content-article ul,
+.guide-content-article ol {
+  padding-left: 1.35rem;
+}
+
+.guide-content-article li + li {
+  margin-top: 0.4rem;
+}
+
+.guide-content-article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-surface);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.guide-content-article th,
+.guide-content-article td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.guide-content-article th {
+  background: var(--bg-subtle);
+  font-weight: 600;
+}
+
+.guide-content-article code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+/* Homepage search: the input is rendered without the wrapper that drew its box */
+.hero-section .hero-search-input {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-subtle);
+  font-size: 1rem;
+}
+
+.hero-section .hero-search-input:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 1px;
+}
+
+/* Mid-width header: the full nav no longer fits beside the logo and call button */
+@media (max-width: 1040px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 520px) {
+  .header-actions .btn-primary-dial {
+    display: none;
+  }
+
+  .guide-content-article table {
+    display: block;
+    overflow-x: auto;
+  }
 }
 
 /* ------------------------------------------------------------------ Mobile Recomposition (Max-Width 768px) */

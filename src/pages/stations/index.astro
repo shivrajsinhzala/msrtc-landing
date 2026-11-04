@@ -3,8 +3,8 @@ import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { DEPOTS, depotSlug } from '../../data/depots.data.mjs';
 
-const title = 'MSRTC Bus Stands & Divisions Contact Directory — All 20 Regions';
-const description = 'Directory of MSRTC bus station inquiry telephone numbers and station master desks across all 20 Maharashtra transport divisions.';
+const title = 'MSRTC Bus Stand Contact Numbers: 20 Maharashtra Regions';
+const description = 'Directory of MSRTC bus stand enquiry phone numbers across 20 major Maharashtra regions, with tap-to-call links and the toll-free helpline 1800-22-1250.';
 const path = '/stations';
 
 const totalStands = DEPOTS.reduce((acc, d) => acc + d.stands.length, 0);
@@ -23,13 +23,13 @@ const breadcrumbs = [
         Maharashtra State Transport · Station Directory
       </div>
       <h1 class="section-title" style="font-size:2.25rem;margin-bottom:0.4rem;">
-        MSRTC Bus Stations &amp; Transport Divisions
+        MSRTC Bus Stations by Region
       </h1>
       <p style="font-size:0.95rem;font-weight:600;color:var(--primary-blue);margin-bottom:0.75rem;">
         महाराष्ट्र एसटी बस स्थानक संपर्क व चौकशी कक्ष
       </p>
       <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
-        Direct telephone lines for platform enquiry desks, station masters, and control rooms across <strong>{DEPOTS.length} transport divisions</strong> and <strong>{totalStands} major terminals</strong> in Maharashtra.
+        Direct telephone lines for platform enquiry desks, station masters, and control rooms across <strong>{DEPOTS.length} major regions</strong> and <strong>{totalStands} major terminals</strong> in Maharashtra.
       </p>
 
       <!-- Instant Filter Input -->

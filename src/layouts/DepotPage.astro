@@ -1,8 +1,9 @@
 ---
 import Base from './Base.astro';
 import AdSlot from '../components/AdSlot.astro';
+import AccuracyNote from '../components/AccuracyNote.astro';
 import { ROUTES } from '../data/routes.data.mjs';
-import { SITE_CONFIG } from '../config/site.mjs';
+import { SITE } from '../config/site.mjs';
 
 interface Stand { label: string; numbers: string[]; }
 interface Props {
@@ -20,8 +21,12 @@ const tel = (n: string) => n.replace(/[^0-9]/g, '');
 const primaryStand = stands[0];
 const primaryNumber = primaryStand.numbers[0];
 
-const title = `${cityName} Bus Stand Contact Number: ${primaryNumber} — MSRTC Enquiry`;
-const description = `MSRTC ${cityName} bus stand enquiry telephone number: ${primaryNumber}. Tap-to-call phone numbers for ${stands.length} station counter${stands.length > 1 ? 's' : ''}, station master desk, and 24×7 passenger helpline 1800-22-1250.`;
+const baseTitle = `${cityName} Bus Stand Contact Number: ${primaryNumber}`;
+const title = baseTitle.length <= 52
+  ? `${baseTitle} — MSRTC`
+  : baseTitle.length <= 60 ? baseTitle : `${cityName} Bus Stand Number: ${primaryNumber}`;
+const description = `MSRTC ${cityName} bus stand enquiry number ${primaryNumber}. Tap-to-call numbers for ${stands.length} stand${multi ? 's' : ''}, plus the toll-free helpline 1800-22-1250.`;
+const quickAnswer = `The main listed MSRTC enquiry number for ${cityName} is ${primaryNumber}, at ${primaryStand.label}. If the line is busy or unanswered, call the MSRTC toll-free helpline on 1800-22-1250.`;
 
 // Connected express routes originating or ending at this depot
 const connectedRoutes = ROUTES.filter(
@@ -43,8 +48,8 @@ const faqs = [
     a: `The primary telephone inquiry desk at ${cityName} bus station is ${primaryNumber}. For 24x7 customer support across Maharashtra, passengers can also dial toll-free 1800-22-1250.`,
   },
   {
-    q: `How many bus terminals operate under the ${cityName} division?`,
-    a: `The ${cityName} division encompasses ${stands.length} major bus terminal${multi ? 's' : ''}: ${stands.map(s => s.label).join(', ')}. Each terminal features platform enquiry desks and station master control offices.`,
+    q: `Which ${cityName} bus stands are listed here?`,
+    a: `This page lists ${stands.length} bus stand${multi ? 's' : ''} for ${cityName}: ${stands.map(s => s.label).join(', ')}.`,
   },
   {
     q: `What if the local ${cityName} enquiry line is busy?`,
@@ -63,6 +68,7 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'BusStation',
+    url: `${SITE}${path}`,
     name: `${cityName} MSRTC Bus Station`,
     alternateName: `${cityName} एसटी बस स्थानक`,
     telephone: primaryNumber,
@@ -95,7 +101,7 @@ const jsonLd = [
     <!-- Depot Hero Header -->
     <section style="margin-bottom:2rem;">
       <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
-        MSRTC Maharashtra ST Transport Division · Verified Directory
+        Independent MSRTC Bus Stand Directory
       </div>
       <h1 class="section-title" style="font-size:2.25rem;margin-bottom:0.4rem;">
         {cityName} Bus Station Contact Numbers
@@ -104,7 +110,7 @@ const jsonLd = [
         {cityName} एसटी बस स्थानक चौकशी क्रमांक व वेळापत्रक
       </p>
       <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
-        Published inquiry counter phone numbers, station master desks, and passenger assistance helplines for <strong>{depot.region} Transport Division</strong> terminals in <strong>{cityName}</strong>.
+        {quickAnswer}
       </p>
 
       <!-- Key Numbers Call Action Strip -->
@@ -126,6 +132,7 @@ const jsonLd = [
           </a>
         </div>
       </div>
+      <AccuracyNote />
     </section>
 
     <!-- Above-The-Fold Ad Slot -->
@@ -215,7 +222,7 @@ const jsonLd = [
                 </p>
               </div>
               <div class="route-card-footer">
-                <span class="route-card-fare">From {r.fares[0].price}</span>
+                <span class="route-card-fare">Approx. from {r.fares[0].price}</span>
                 <span class="route-card-action">View schedule</span>
               </div>
             </a>

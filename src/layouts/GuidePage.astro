@@ -1,7 +1,7 @@
 ---
 import Base from './Base.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { SITE_CONFIG } from '../config/site.mjs';
+import AccuracyNote from '../components/AccuracyNote.astro';
 
 interface Props {
   guide: { slug: string; title: string; description: string; h1: string; bodyHtml: string; faq?: { q: string; a: string }[] };
@@ -11,15 +11,7 @@ interface Props {
 
 const { guide, path, otherGuides } = Astro.props;
 
-const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: guide.title,
-    description: guide.description,
-    about: { '@type': 'Organization', name: SITE_CONFIG.corporationFull },
-  },
-];
+const jsonLd: unknown[] = [];
 
 if (guide.faq?.length) {
   jsonLd.push({
@@ -34,8 +26,7 @@ if (guide.faq?.length) {
 }
 
 const breadcrumbs = [
-  { label: 'Guides', href: '/' },
-  { label: guide.title.split('—')[0].trim(), href: path },
+  { label: guide.title.split(/[—:]/)[0].trim(), href: path },
 ];
 ---
 
@@ -44,10 +35,12 @@ const breadcrumbs = [
   <div class="wrap" style="padding-top:1.5rem;padding-bottom:3rem;max-width:840px;">
 
     <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
-      MSRTC Official Utility Guide · Maharashtra State Transport
+      Independent MSRTC Passenger Guide
     </div>
 
     <h1 class="section-title" style="font-size:2.2rem;margin-bottom:1rem;" set:html={guide.h1} />
+
+    <AccuracyNote fares={guide.slug === 'msrtc-bus-fare' || guide.slug === 'msrtc-bus-timetable'} />
 
     <!-- Above-The-Fold Ad Slot -->
     <AdSlot slotId="5213571252" label="Advertisement" />

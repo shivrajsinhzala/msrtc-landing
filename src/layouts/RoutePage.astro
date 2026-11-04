@@ -1,7 +1,8 @@
 ---
 import Base from './Base.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { SITE_CONFIG } from '../config/site.mjs';
+import AccuracyNote from '../components/AccuracyNote.astro';
+import { SITE, SITE_CONFIG } from '../config/site.mjs';
 
 interface RouteFare {
   type: string;
@@ -60,8 +61,10 @@ const {
 
 const tel = (n: string) => n.replace(/[^0-9]/g, '');
 
-const title = `${originCity} to ${destinationCity} Bus Timetable, Ticket Price & Schedule — MSRTC`;
-const metaDesc = `MSRTC ${originCity} to ${destinationCity} bus schedule: First bus ${firstBus}, final departure ${lastBus}. Distance ${distanceKm} km (${durationHours}). Fares starting from ${fares[0].price}. Station counter inquiry numbers & online booking details.`;
+const baseTitle = `${originCity} to ${destinationCity} Bus Timetable & Fare`;
+const title = baseTitle.length <= 52 ? `${baseTitle} — MSRTC` : baseTitle;
+const metaDesc = `${originCity} to ${destinationCity} MSRTC bus guide: about ${distanceKm} km, ${durationHours}, ${frequency.toLowerCase()}. Indicative timings and fares, plus enquiry numbers.`;
+const quickAnswer = `${originCity} to ${destinationCity} is about ${distanceKm} km by MSRTC bus and takes ${durationHours}. Buses run ${frequency.toLowerCase()}, with an indicative first departure at ${firstBus} and last at ${lastBus}. Indicative fares start around ${fares[0].price}. Check the MSRTC portal for the current fare and exact departures.`;
 
 const breadcrumbs = [
   { label: 'Routes & Timetables', href: '/routes' },
@@ -70,12 +73,12 @@ const breadcrumbs = [
 
 const faqs = [
   {
-    q: `What is the scheduled bus frequency from ${originCity} to ${destinationCity}?`,
-    a: `MSRTC buses on the ${originCity} to ${destinationCity} route operate at a scheduled frequency of ${frequency}. The first bus leaves ${originCity} at ${firstBus}, and the final night service departs at ${lastBus}.`,
+    q: `How often do buses run from ${originCity} to ${destinationCity}?`,
+    a: `MSRTC buses on the ${originCity} to ${destinationCity} route run ${frequency.toLowerCase()}, as an indicative guide. The first listed departure from ${originCity} is ${firstBus} and the last is ${lastBus}. Confirm exact departures on the MSRTC portal or helpline.`,
   },
   {
     q: `What is the ticket fare for ${originCity} to ${destinationCity} MSRTC buses?`,
-    a: `Ticket prices start from ${fares[0].price} for ${fares[0].type} services, and range up to ${fares[fares.length - 1].price} for ${fares[fares.length - 1].type}. Female passengers receive an automatic 50% discount under Mahila Samman Yojana.`,
+    a: `Indicative fares run from about ${fares[0].price} for ${fares[0].type} to about ${fares[fares.length - 1].price} for ${fares[fares.length - 1].type}. These may not include the latest fare revision, so check the MSRTC portal for the current price. Women passengers can get a 50% concession under Mahila Samman Yojana.`,
   },
   {
     q: `What is the travel distance and duration between ${originCity} and ${destinationCity}?`,
@@ -95,6 +98,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BusTrip',
     name: `${originCity} to ${destinationCity} MSRTC Bus`,
+    url: `${SITE}${path}`,
     description: metaDesc,
     departureBusStop: {
       '@type': 'BusStation',
@@ -134,7 +138,7 @@ const jsonLd = [
     <!-- Route Header -->
     <section style="margin-bottom:2rem;">
       <div style="font-family:var(--font-mono);font-size:0.75rem;font-weight:700;color:var(--primary-blue);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem;">
-        MSRTC Maharashtra ST Schedule · Public Reference
+        Independent MSRTC Route Guide · Indicative Reference
       </div>
       <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.4rem;">
         {originCity} to {destinationCity} Bus Timetable &amp; Fares
@@ -143,7 +147,7 @@ const jsonLd = [
         {originCity} ते {destinationCity} एसटी बस वेळापत्रक व तिकीट दर
       </p>
       <p class="section-subtitle" style="font-size:1.05rem;line-height:1.6;max-width:760px;">
-        Departure frequencies, coach ticket fares, travel duration, and station inquiry desk numbers for <strong>MSRTC (ST Mahamandal)</strong> buses connecting <strong>{originCity}</strong> and <strong>{destinationCity}</strong>.
+        {quickAnswer}
       </p>
 
       <!-- Route Spec Grid -->
@@ -169,7 +173,7 @@ const jsonLd = [
           <div class="route-spec-value">{lastBus}</div>
         </div>
         <div class="route-spec-cell">
-          <div class="route-spec-label">Starting Fare</div>
+          <div class="route-spec-label">Indicative Starting Fare</div>
           <div class="route-spec-value" style="color:var(--success);">{fares[0].price}</div>
         </div>
       </div>
@@ -205,8 +209,9 @@ const jsonLd = [
         {originCity} to {destinationCity} Bus Ticket Prices &amp; Categories
       </h2>
       <p class="section-subtitle" style="margin-bottom:1rem;">
-        Regulated distance-based fare chart across MSRTC service classes on this corridor:
+        Indicative one-way fares by MSRTC service class on this corridor:
       </p>
+      <AccuracyNote fares />
 
       <!-- Desktop Table -->
       <div class="desktop-table-only table-container">
@@ -214,7 +219,7 @@ const jsonLd = [
           <thead>
             <tr>
               <th scope="col">Service Category</th>
-              <th scope="col">Estimated One-Way Fare</th>
+              <th scope="col">Indicative One-Way Fare</th>
               <th scope="col">Comfort &amp; Seating Features</th>
               <th scope="col">Official Booking</th>
             </tr>
@@ -351,7 +356,7 @@ const jsonLd = [
                 </p>
               </div>
               <div class="route-card-footer">
-                <span class="route-card-fare">From {s.fares[0].price}</span>
+                <span class="route-card-fare">Approx. from {s.fares[0].price}</span>
                 <span class="route-card-action">View timetable</span>
               </div>
             </a>
