@@ -1125,5 +1125,311 @@ export const ROUTES = [
       "Express transit via Satara and Karad"
     ],
     "description": "High-frequency South Maharashtra route connecting Pune Swargate with Sangli Central bus stand via Shirwal, Satara, and Karad."
+  },
+  {
+    "id": "mumbai-to-kolhapur",
+    "slug": "mumbai-to-kolhapur-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Mumbai",
+    "destinationCity": "Kolhapur",
+    "originDepotSlug": "mumbai-bus-station-contact-number",
+    "originStandName": "Mumbai Central & Parel ST Stand",
+    "originStandPhone": "022-23024074",
+    "destinationDepotSlug": "kolhapur-bus-station-contact-number",
+    "destinationStandName": "Kolhapur Central Bus Stand (CBS)",
+    "destinationStandPhone": "0231-2650620",
+    "distanceKm": 380,
+    "durationHours": "7.5 - 8.5 hrs",
+    "highway": "NH-48 via Mumbai-Pune Expressway & Satara",
+    "frequency": "Every 30–45 mins (24x7)",
+    "firstBus": "05:30 AM",
+    "lastBus": "11:45 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹480" },
+      { "type": "AC Shivshahi", "price": "₹720" },
+      { "type": "Shivneri AC Volvo", "price": "₹1,050" }
+    ],
+    "highlights": [
+      "Frequent day and overnight express coaches",
+      "Direct connectivity via Expressway and NH-48",
+      "Shivneri AC and sleeper services available"
+    ],
+    "description": "Major trunk route linking Mumbai Central and Dadar with Kolhapur Central Bus Stand via Pune Bypass, Shirwal, Satara, and Karad."
+  },
+  {
+    "id": "nashik-to-pune",
+    "slug": "nashik-to-pune-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Nashik",
+    "destinationCity": "Pune",
+    "originDepotSlug": "nashik-bus-station-contact-number",
+    "originStandName": "Nashik CBS Thakkar Bazar & Mahamarg",
+    "originStandPhone": "0253-2309308",
+    "destinationDepotSlug": "pune-bus-station-contact-number",
+    "destinationStandName": "Shivajinagar & Swargate Bus Station",
+    "destinationStandPhone": "020-24449980",
+    "distanceKm": 210,
+    "durationHours": "4.5 - 5 hrs",
+    "highway": "Pune-Nashik Highway (NH-60)",
+    "frequency": "Every 20–30 mins",
+    "firstBus": "04:30 AM",
+    "lastBus": "11:45 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹290" },
+      { "type": "Semi-Luxury Hirkani", "price": "₹370" },
+      { "type": "AC Shivshahi", "price": "₹480" }
+    ],
+    "highlights": [
+      "High-frequency corridor via Sangamner and Narayangaon",
+      "AC Shivshahi coaches every hour",
+      "Round-the-clock service connecting commercial hubs"
+    ],
+    "description": "Return service linking Nashik CBS Thakkar Bazar with Pune Shivajinagar and Swargate along the four-lane NH-60 corridor."
+  },
+  {
+    "id": "pune-to-nagpur",
+    "slug": "pune-to-nagpur-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Pune",
+    "destinationCity": "Nagpur",
+    "originDepotSlug": "pune-bus-station-contact-number",
+    "originStandName": "Swargate & Shivajinagar Bus Station",
+    "originStandPhone": "020-24449980",
+    "destinationDepotSlug": "nagpur-bus-station-contact-number",
+    "destinationStandName": "Nagpur Ganeshpeth Central Bus Station",
+    "destinationStandPhone": "0712-2726221",
+    "distanceKm": 710,
+    "durationHours": "12 - 13 hrs",
+    "highway": "Samruddhi Mahamarg & NH-753F",
+    "frequency": "Multiple daily departures & overnight sleepers",
+    "firstBus": "06:30 AM",
+    "lastBus": "09:30 PM",
+    "fares": [
+      { "type": "Ordinary Express", "price": "₹920" },
+      { "type": "AC Shivshahi", "price": "₹1,450" },
+      { "type": "AC Sleeper", "price": "₹1,750" }
+    ],
+    "highlights": [
+      "Flagship cross-state long-distance route",
+      "Overnight AC Shivshahi sleeper coaches",
+      "Fast transit via Hindu Hrudaysamrat Balasaheb Thackeray Samruddhi Mahamarg"
+    ],
+    "description": "Key transit artery connecting Pune cultural capital with the orange city of Nagpur across Western Maharashtra and Vidarbha."
+  },
+  {
+    "id": "nagpur-to-pune",
+    "slug": "nagpur-to-pune-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Nagpur",
+    "destinationCity": "Pune",
+    "originDepotSlug": "nagpur-bus-station-contact-number",
+    "originStandName": "Nagpur Ganeshpeth Central Bus Station",
+    "originStandPhone": "0712-2726221",
+    "destinationDepotSlug": "pune-bus-station-contact-number",
+    "destinationStandName": "Swargate & Shivajinagar Bus Station",
+    "destinationStandPhone": "020-24449980",
+    "distanceKm": 710,
+    "durationHours": "12 - 13 hrs",
+    "highway": "Samruddhi Mahamarg & NH-753F",
+    "frequency": "Multiple daily departures & overnight sleepers",
+    "firstBus": "06:30 AM",
+    "lastBus": "09:30 PM",
+    "fares": [
+      { "type": "Ordinary Express", "price": "₹920" },
+      { "type": "AC Shivshahi", "price": "₹1,450" },
+      { "type": "AC Sleeper", "price": "₹1,750" }
+    ],
+    "highlights": [
+      "High-demand Vidarbha to Western Maharashtra corridor",
+      "Comfortable overnight sleeper services",
+      "Non-stop Samruddhi expressway links"
+    ],
+    "description": "Return trunk corridor connecting Nagpur Ganeshpeth bus station to Pune Swargate via Amravati, Karanja, and Samruddhi Mahamarg."
+  },
+  {
+    "id": "mumbai-to-aurangabad",
+    "slug": "mumbai-to-aurangabad-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Mumbai",
+    "destinationCity": "Chhatrapati Sambhajinagar",
+    "originDepotSlug": "mumbai-bus-station-contact-number",
+    "originStandName": "Mumbai Central & Kurla Nehru Nagar",
+    "originStandPhone": "022-23024074",
+    "destinationDepotSlug": "chhatrapati-sambhajinagar-bus-station-contact-number",
+    "destinationStandName": "Central Bus Stand (CBS) Chhatrapati Sambhajinagar",
+    "destinationStandPhone": "0240-2240184",
+    "distanceKm": 335,
+    "durationHours": "6.5 - 7 hrs",
+    "highway": "Samruddhi Mahamarg & NH-160",
+    "frequency": "Every 45 mins",
+    "firstBus": "05:30 AM",
+    "lastBus": "11:15 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹440" },
+      { "type": "AC Shivshahi", "price": "₹680" },
+      { "type": "Shivneri AC Volvo", "price": "₹950" }
+    ],
+    "highlights": [
+      "Direct link to UNESCO world heritage hubs (Ajanta & Ellora)",
+      "Shivshahi AC departures throughout the day",
+      "High-speed access via Samruddhi expressway interchange"
+    ],
+    "description": "Major industrial and tourism corridor linking Mumbai financial capital with Chhatrapati Sambhajinagar (Aurangabad) Central Bus Stand."
+  },
+  {
+    "id": "aurangabad-to-mumbai",
+    "slug": "aurangabad-to-mumbai-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Chhatrapati Sambhajinagar",
+    "destinationCity": "Mumbai",
+    "originDepotSlug": "chhatrapati-sambhajinagar-bus-station-contact-number",
+    "originStandName": "Central Bus Stand (CBS) Chhatrapati Sambhajinagar",
+    "originStandPhone": "0240-2240184",
+    "destinationDepotSlug": "mumbai-bus-station-contact-number",
+    "destinationStandName": "Mumbai Central & Dadar ST Stand",
+    "destinationStandPhone": "022-23024074",
+    "distanceKm": 335,
+    "durationHours": "6.5 - 7 hrs",
+    "highway": "Samruddhi Mahamarg & NH-160",
+    "frequency": "Every 45 mins",
+    "firstBus": "05:00 AM",
+    "lastBus": "11:30 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹440" },
+      { "type": "AC Shivshahi", "price": "₹680" },
+      { "type": "Shivneri AC Volvo", "price": "₹950" }
+    ],
+    "highlights": [
+      "Regular express and luxury departures to Mumbai",
+      "Direct connectivity via Expressway to Dadar and Mumbai Central",
+      "Overnight sleeper options available"
+    ],
+    "description": "Return service linking Chhatrapati Sambhajinagar CBS with Mumbai Central, Dadar, and Borivali depots."
+  },
+  {
+    "id": "thane-to-shirdi",
+    "slug": "thane-to-shirdi-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Thane",
+    "destinationCity": "Shirdi",
+    "originDepotSlug": "thane-bus-station-contact-number",
+    "originStandName": "Thane CBS & Vandana Bus Stand",
+    "originStandPhone": "022-25332504",
+    "destinationDepotSlug": "shirdi-bus-station-contact-number",
+    "destinationStandName": "Shirdi ST Bus Stand (Near Temple Complex)",
+    "destinationStandPhone": "02423-255222",
+    "distanceKm": 225,
+    "durationHours": "5 - 5.5 hrs",
+    "highway": "NH-160 via Kasara Ghat and Sinnar",
+    "frequency": "Every 30–45 mins",
+    "firstBus": "05:30 AM",
+    "lastBus": "11:00 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹310" },
+      { "type": "AC Shivshahi", "price": "₹490" }
+    ],
+    "highlights": [
+      "High-demand pilgrimage corridor for Sai Baba devotees",
+      "Shivshahi AC buses departing directly from Thane Vandana stand",
+      "Comfortable halts with scenic Kasara Ghat transit"
+    ],
+    "description": "Pilgrim transit corridor connecting Thane Central and Vandana depots directly to Shirdi Sai Baba Temple Bus Stand via Shahapur and Sinnar."
+  },
+  {
+    "id": "kalyan-to-pune",
+    "slug": "kalyan-to-pune-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Thane",
+    "destinationCity": "Pune",
+    "originDepotSlug": "thane-bus-station-contact-number",
+    "originStandName": "Kalyan Bus Station (Thane Division)",
+    "originStandPhone": "022-25332504",
+    "destinationDepotSlug": "pune-bus-station-contact-number",
+    "destinationStandName": "Shivajinagar & Swargate Bus Stand",
+    "destinationStandPhone": "020-24449980",
+    "distanceKm": 135,
+    "durationHours": "3.5 - 4 hrs",
+    "highway": "Mumbai-Pune Expressway via Panvel",
+    "frequency": "Every 45 mins",
+    "firstBus": "06:00 AM",
+    "lastBus": "10:30 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹195" },
+      { "type": "AC Shivshahi", "price": "₹340" }
+    ],
+    "highlights": [
+      "Direct commuter connection between Kalyan junction and Pune",
+      "Expressway route bypassing city congestion",
+      "Hourly departures during morning and evening peaks"
+    ],
+    "description": "Intercity commuter route connecting Kalyan Railway Station ST stand with Pune Shivajinagar and Swargate terminals."
+  },
+  {
+    "id": "mumbai-to-alibaug",
+    "slug": "mumbai-to-alibaug-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Mumbai",
+    "destinationCity": "Raigad",
+    "originDepotSlug": "mumbai-bus-station-contact-number",
+    "originStandName": "Mumbai Central & Borivali ST Stand",
+    "originStandPhone": "022-23024074",
+    "destinationDepotSlug": "raigad-bus-station-contact-number",
+    "destinationStandName": "Alibaug ST Bus Stand",
+    "destinationStandPhone": "022-27465147",
+    "distanceKm": 95,
+    "durationHours": "2.5 - 3 hrs",
+    "highway": "NH-66 & Alibaug-Pen Road",
+    "frequency": "Every 30–40 mins",
+    "firstBus": "05:45 AM",
+    "lastBus": "09:30 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹145" },
+      { "type": "AC Shivshahi", "price": "₹240" }
+    ],
+    "highlights": [
+      "Popular coastal and weekend tourism route",
+      "Direct buses via Panvel, Pen, and Vadkhal Naka",
+      "Frequent morning departures from Borivali and Dadar"
+    ],
+    "description": "Coastal transit corridor connecting Mumbai Central and suburban depots with Alibaug coastal bus station in Raigad district."
+  },
+  {
+    "id": "nashik-to-aurangabad",
+    "slug": "nashik-to-aurangabad-bus-time-table",
+    "stateId": "maharashtra",
+    "corporation": "MSRTC",
+    "originCity": "Nashik",
+    "destinationCity": "Chhatrapati Sambhajinagar",
+    "originDepotSlug": "nashik-bus-station-contact-number",
+    "originStandName": "Nashik CBS Thakkar Bazar",
+    "originStandPhone": "0253-2309308",
+    "destinationDepotSlug": "chhatrapati-sambhajinagar-bus-station-contact-number",
+    "destinationStandName": "Central Bus Stand (CBS) Chhatrapati Sambhajinagar",
+    "destinationStandPhone": "0240-2240184",
+    "distanceKm": 190,
+    "durationHours": "4 - 4.5 hrs",
+    "highway": "NH-753H via Niphad, Yeola & Vaijapur",
+    "frequency": "Every 30 mins",
+    "firstBus": "05:00 AM",
+    "lastBus": "10:30 PM",
+    "fares": [
+      { "type": "Ordinary Lal Pari", "price": "₹255" },
+      { "type": "AC Shivshahi", "price": "₹410" }
+    ],
+    "highlights": [
+      "High-frequency North Maharashtra to Marathwada link",
+      "Frequent departures via Yeola textile hub and Vaijapur",
+      "Connects two major industrial growth engines"
+    ],
+    "description": "Busy transit corridor connecting Nashik CBS with Chhatrapati Sambhajinagar CBS across Northern Maharashtra and Marathwada."
   }
 ];
