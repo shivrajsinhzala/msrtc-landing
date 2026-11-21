@@ -217,8 +217,8 @@ const baseJsonLd: unknown[] = [
   <div class="mobile-drawer" id="mobile-nav-drawer" aria-hidden="true">
     <nav class="wrap mobile-nav-links" aria-label="Mobile Navigation">
       <a href="/" class="mobile-nav-item">Home Directory</a>
-      <a href="/routes" class="mobile-nav-item">Bus Timetables &amp; Routes (30)</a>
-      <a href="/stations" class="mobile-nav-item">Bus Stands &amp; Regions (20)</a>
+      <a href="/routes" class="mobile-nav-item">Bus Timetables &amp; Routes (130+)</a>
+      <a href="/stations" class="mobile-nav-item">Bus Stands &amp; Regions (36)</a>
       <a href="/msrtc-bus-fare" class="mobile-nav-item">Bus Fares &amp; Concessions</a>
       <a href="/msrtc-online-ticket-booking" class="mobile-nav-item">Online Ticket Booking</a>
       <a href="/msrtc-helpline-number" class="mobile-nav-item">24x7 Helpline &amp; Grievances</a>
@@ -278,8 +278,8 @@ const baseJsonLd: unknown[] = [
         <li><a href="/msrtc-bus-fare">MSRTC Bus Fare &amp; Concessions</a></li>
         <li><a href="/msrtc-online-ticket-booking">Online Ticket Booking</a></li>
         <li><a href="/msrtc-helpline-number">24x7 Customer Care</a></li>
-        <li><a href="/routes">30 Popular Bus Routes</a></li>
-        <li><a href="/stations">20 Major Regions</a></li>
+        <li><a href="/routes">130+ Intercity Bus Routes</a></li>
+        <li><a href="/stations">36 Maharashtra Divisions</a></li>
       </ul>
     </div>
 
@@ -316,7 +316,7 @@ const baseJsonLd: unknown[] = [
   </div>
 </footer>
 
-<!-- Interactive Scripts: Mobile Nav, AdSense Lazy Loader, Phone Copy Toast -->
+<!-- Interactive Scripts: Mobile Nav, Maximum Revenue AdSense Engine, Search Shortcuts -->
 <script type="module">
   // Mobile Nav Drawer Toggle
   const mobileBtn = document.getElementById('mobile-menu-btn');
@@ -329,37 +329,92 @@ const baseJsonLd: unknown[] = [
     });
   }
 
-  // Lazy Ad Loading with IntersectionObserver
-  function setupLazyAds() {
-    const adWraps = document.querySelectorAll('.ad-slot-wrap');
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const ins = entry.target.querySelector('ins.adsbygoogle');
-            if (ins && !ins.dataset.loaded) {
-              ins.dataset.loaded = 'true';
-              try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-              } catch (e) {}
-            }
-            obs.unobserve(entry.target);
+  // Maximum Revenue AdSense binding with document-order synchronization & unfilled collapse
+  function initAds() {
+    const slots = document.querySelectorAll('ins.adsbygoogle[data-ad-slot]');
+    if (!slots.length) return;
+
+    slots.forEach((slot) => {
+      const wrap = slot.closest('.ad-slot-wrap');
+
+      // 1. Cleanly collapse container when AdSense explicitly reports unfilled (prevents blank whitespace)
+      const observer = new MutationObserver(() => {
+        const status = slot.getAttribute('data-ad-status');
+        if (status === 'unfilled') {
+          if (wrap) {
+            wrap.hidden = true;
+            wrap.classList.add('ad-unfilled');
+            wrap.style.display = 'none';
           }
-        });
-      }, { rootMargin: '600px 0px' });
-      adWraps.forEach(w => observer.observe(w));
-    } else {
-      document.querySelectorAll('ins.adsbygoogle').forEach(ins => {
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+          observer.disconnect();
+        } else if (status === 'filled') {
+          if (wrap) wrap.classList.add('ad-filled');
+          observer.disconnect();
+        }
       });
-    }
+      observer.observe(slot, { attributes: true, attributeFilter: ['data-ad-status'] });
+
+      // 2. Collapse gracefully after 7s if blocked by ad-blocker
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          if (!slot.getAttribute('data-ad-status') && !slot.querySelector('iframe')) {
+            const scriptBlocked = !window.adsbygoogle?.loaded;
+            if (scriptBlocked && wrap) {
+              wrap.hidden = true;
+              wrap.classList.add('ad-unfilled');
+              wrap.style.display = 'none';
+            }
+          }
+        }, 7000);
+      }, { once: true });
+
+      if (slot.dataset.adsenseRequested === '1') return;
+      slot.dataset.adsenseRequested = '1';
+
+      // 3. Document-order queue matching: Auto Ads inserts <ins> elements into DOM dynamically.
+      // adsbygoogle.push({}) fills the FIRST unprocessed <ins> in document order.
+      // Waiting until this slot is the next one ensures manual high-RPM units always get filled.
+      const SIZE_ATTEMPTS = 120;
+      const pushInOrder = (attemptsLeft) => {
+        const all = [...document.querySelectorAll('ins.adsbygoogle')];
+        const next = all.find((n) => !n.getAttribute('data-adsbygoogle-status'));
+
+        if (next !== slot) {
+          if (attemptsLeft > 0) requestAnimationFrame(() => pushInOrder(attemptsLeft - 1));
+          return;
+        }
+
+        if (slot.getBoundingClientRect().width <= 0) {
+          if (attemptsLeft > 0) requestAnimationFrame(() => pushInOrder(attemptsLeft - 1));
+          return;
+        }
+
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch {}
+      };
+
+      requestAnimationFrame(() => requestAnimationFrame(() => pushInOrder(SIZE_ATTEMPTS)));
+    });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupLazyAds);
+    document.addEventListener('DOMContentLoaded', initAds);
   } else {
-    setupLazyAds();
+    initAds();
   }
+
+  // Universal '/' shortcut to jump to search
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target?.tagName)) {
+      const searchInput = document.getElementById('msrtc-search-input') || document.getElementById('route-filter-input') || document.getElementById('depot-filter-input');
+      if (searchInput) {
+        e.preventDefault();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchInput.focus();
+      }
+    }
+  });
 </script>
 
 </body>

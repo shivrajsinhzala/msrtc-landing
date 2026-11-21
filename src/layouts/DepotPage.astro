@@ -21,10 +21,7 @@ const tel = (n: string) => n.replace(/[^0-9]/g, '');
 const primaryStand = stands[0];
 const primaryNumber = primaryStand.numbers[0];
 
-const baseTitle = `${cityName} Bus Stand Contact Number: ${primaryNumber}`;
-const title = baseTitle.length <= 52
-  ? `${baseTitle} — MSRTC`
-  : baseTitle.length <= 60 ? baseTitle : `${cityName} Bus Stand Number: ${primaryNumber}`;
+const title = `☎ ${cityName} Bus Stand Contact Number: ${primaryNumber} — MSRTC Enquiry`;
 const description = `MSRTC ${cityName} bus stand enquiry number ${primaryNumber}. Tap-to-call numbers for ${stands.length} stand${multi ? 's' : ''}, plus the toll-free helpline 1800-22-1250.`;
 const quickAnswer = `The main listed MSRTC enquiry number for ${cityName} is ${primaryNumber}, at ${primaryStand.label}. If the line is busy or unanswered, call the MSRTC toll-free helpline on 1800-22-1250.`;
 
@@ -135,8 +132,8 @@ const jsonLd = [
       <AccuracyNote />
     </section>
 
-    <!-- Above-The-Fold Ad Slot -->
-    <AdSlot slotId="5213571252" label="Advertisement" />
+    <!-- Above-The-Fold Top Banner Ad Slot -->
+    <AdSlot slotId="2791501592" label="Sponsored Advertisement" />
 
     <!-- Bus Stands Directory Table / Cards -->
     <section aria-labelledby="stands-heading" style="margin:2.5rem 0;">
@@ -268,8 +265,8 @@ const jsonLd = [
       </section>
     )}
 
-    <!-- Pre-Footer Ad Slot -->
-    <AdSlot slotId="5213571252" label="Sponsored" />
+    <!-- Pre-Footer High-Impact Bottom Ad Slot -->
+    <AdSlot slotId="4042767848" label="Sponsored" />
 
   </div>
 

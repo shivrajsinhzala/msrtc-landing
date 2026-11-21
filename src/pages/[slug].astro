@@ -10,8 +10,10 @@ export function getStaticPaths() {
   // 1. Depot Pages
   DEPOTS.forEach((depot, i) => {
     const siblings = [
+      DEPOTS[(i - 2 + DEPOTS.length) % DEPOTS.length],
       DEPOTS[(i - 1 + DEPOTS.length) % DEPOTS.length],
       DEPOTS[(i + 1) % DEPOTS.length],
+      DEPOTS[(i + 2) % DEPOTS.length],
     ];
     paths.push({
       params: { slug: depotSlug(depot.city) },

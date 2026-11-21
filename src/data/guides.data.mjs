@@ -1,7 +1,8 @@
 /**
  * State-level utility guides for Maharashtra — the high-intent informational cluster
  * that captures statewide queries: "msrtc bus timetable", "msrtc bus fare",
- * "msrtc online ticket booking", "msrtc helpline number", and "shivshahi bus ticket price".
+ * "msrtc online ticket booking", "msrtc helpline number", "shivshahi bus ticket price",
+ * "shivneri bus booking", "msrtc bus pass", and "msrtc parcel cargo booking".
  *
  * Sourced directly from official Maharashtra State Road Transport Corporation (MSRTC) records:
  * - msrtc.maharashtra.gov.in
@@ -160,6 +161,150 @@ export const GUIDES = [
       { q: 'What time is the first MSRTC bus from Pune to Shirdi?', a: 'Our indicative listing shows the first Pune to Shirdi departure around 05:00 AM. Confirm the exact time and departure stand on the MSRTC portal or helpline.' },
       { q: 'Where can I find Marathi ST bus timetable (एसटी बस वेळापत्रक)?', a: 'Detailed schedules in both English and Marathi keywords are cataloged on our Maharashtra routes directory and the official MSRTC mobile app.' },
       { q: 'Do MSRTC night buses run between major cities?', a: 'Yes, overnight ordinary express, Shivshahi, and sleeper buses operate continuously on routes such as Mumbai to Kolhapur, Pune to Nagpur, and Mumbai to Ratnagiri.' },
+    ],
+  },
+  {
+    slug: 'shivshahi-bus-ticket-price-time-table',
+    navLabel: 'Shivshahi bus ticket price & timetable',
+    title: 'Shivshahi Bus Ticket Price, Booking & Time Table — MSRTC',
+    description: 'Complete guide to MSRTC AC Shivshahi bus ticket prices, timetable, seat booking, sleeper coaches, and popular routes like Nagpur-Pune and Solapur-Pune.',
+    h1: 'MSRTC Shivshahi AC Bus Ticket Price, Timetable & Online Booking',
+    bodyHtml: `
+      <p><strong>MSRTC Shivshahi</strong> (शिवशाही बस) is Maharashtra State Transport's premier air-conditioned luxury bus service. Designed to provide comfortable intercity travel at affordable government tariffs, Shivshahi operates across all major district headquarters, connecting Pune, Mumbai, Nagpur, Solapur, Kolhapur, Nashik, and Chhatrapati Sambhajinagar.</p>
+
+      <h2>Shivshahi Bus Features & Amenities</h2>
+      <ul>
+        <li><strong>Seating Configuration:</strong> 2x2 luxury reclining pushback seats with ample legroom.</li>
+        <li><strong>Air Suspension:</strong> Smooth, vibration-free ride on national and state highways.</li>
+        <li><strong>Passenger Utilities:</strong> Individual mobile charging sockets, reading lamps, and digital route displays.</li>
+        <li><strong>Shivshahi Sleeper Coaches:</strong> 2x1 AC sleeper layout available on long-distance overnight routes (e.g. Pune–Nagpur, Mumbai–Kolhapur).</li>
+      </ul>
+
+      <h2>Popular Shivshahi Corridors & Indicative Fares</h2>
+      <table>
+        <tr><th>Corridor</th><th>Indicative Shivshahi Fare</th><th>Frequency</th><th>Average Duration</th></tr>
+        <tr><td><strong>Solapur ⇄ Pune</strong></td><td>₹465</td><td>Every 45–60 mins</td><td>~5 hrs</td></tr>
+        <tr><td><strong>Nagpur ⇄ Pune</strong></td><td>₹1,240 (Seater) / ₹1,480 (Sleeper)</td><td>Evening departures</td><td>~13–14 hrs</td></tr>
+        <tr><td><strong>Mumbai ⇄ Nashik</strong></td><td>₹380</td><td>Every 30–45 mins</td><td>~4.5 hrs</td></tr>
+        <tr><td><strong>Pune ⇄ Kolhapur</strong></td><td>₹430</td><td>Every 30 mins</td><td>~5 hrs</td></tr>
+        <tr><td><strong>Mumbai ⇄ Shirdi</strong></td><td>₹490</td><td>Hourly departures</td><td>~5.5 hrs</td></tr>
+        <tr><td><strong>Pune ⇄ Aurangabad</strong></td><td>₹450</td><td>Every 45 mins</td><td>~5 hrs</td></tr>
+      </table>
+
+      <h2>How to Book Shivshahi Bus Tickets</h2>
+      <ol>
+        <li>Visit the official booking portal <a href="https://npublic.msrtcors.com" target="_blank" rel="noopener">npublic.msrtcors.com</a>.</li>
+        <li>Select origin, destination, and travel date. Filter bus type by selecting <strong>AC Shivshahi</strong>.</li>
+        <li>Choose preferred seats on the digital seat chart.</li>
+        <li>Enter passenger details. Female passengers can avail the <strong>50% Mahila Samman concession</strong> on eligible routes.</li>
+        <li>Pay via UPI, credit/debit card, or net banking and receive your instant digital SMS/PDF ticket.</li>
+      </ol>`,
+    faq: [
+      { q: 'How much is a Shivshahi bus ticket from Nagpur to Pune?', a: 'Shivshahi seater ticket price from Nagpur to Pune is approximately ₹1,240, while Shivshahi AC Sleeper fare starts around ₹1,480. Fares vary depending on route stages and toll revisions.' },
+      { q: 'Is Mahila Samman 50% discount applicable on Shivshahi buses?', a: 'Yes, female passengers travelling within Maharashtra state borders receive a 50% fare concession on MSRTC Shivshahi AC buses under the Mahila Samman Yojana.' },
+      { q: 'What is the ticket price for Solapur to Pune Shivshahi bus?', a: 'The indicative ticket price for an AC Shivshahi bus from Solapur to Pune is approximately ₹465.' },
+      { q: 'Can I book Shivshahi sleeper seats online?', a: 'Yes, advance reservation for both Shivshahi 2x2 seater and 2x1 sleeper coaches is available on npublic.msrtcors.com and the MSRTC Bus Reservation mobile app.' },
+    ],
+  },
+  {
+    slug: 'shivneri-volvo-bus-timings-booking-fare',
+    navLabel: 'Shivneri Volvo bus timings & booking',
+    title: 'Shivneri Volvo Bus Timings, Ticket Price & Booking — MSRTC',
+    description: 'Guide to MSRTC Shivneri & E-Shivneri Volvo buses: Mumbai to Pune timetable, Dadar-Swargate departures, ticket fares, amenities and online reservation.',
+    h1: 'MSRTC Shivneri Volvo & E-Shivneri Bus Timings, Fares & Booking',
+    bodyHtml: `
+      <p><strong>MSRTC Shivneri</strong> (शिवनेरी बस) is the flagship multi-axle luxury coach service of Maharashtra State Road Transport Corporation. Running non-stop primarily along the Yashwantrao Chavan Mumbai–Pune Expressway, Shivneri Volvo, Scania, and new electric <strong>E-Shivneri</strong> buses represent the gold standard in premium intercity public transit in India.</p>
+
+      <h2>Expressway Shivneri Terminals</h2>
+      <p>Shivneri buses depart round-the-clock from multiple boarding points in Mumbai and Pune:</p>
+      <ul>
+        <li><strong>Pune Terminals:</strong> Swargate Bus Station, Pune Railway Station (Platform 1 Stand), Wakad Ginger Hotel Stand, and Hinjawadi Bridge.</li>
+        <li><strong>Mumbai Terminals:</strong> Dadar Asiad Stand (Pritam Hotel), Borivali Sukurwadi, Thane Vandana, and Mumbai Central.</li>
+      </ul>
+
+      <h2>Shivneri Fares & Frequency</h2>
+      <table>
+        <tr><th>Route</th><th>Service Type</th><th>Frequency</th><th>Indicative Fare</th></tr>
+        <tr><td><strong>Pune (Swargate) ⇄ Mumbai (Dadar)</strong></td><td>Volvo / E-Shivneri AC</td><td>Every 15–20 mins (24x7)</td><td>₹520</td></tr>
+        <tr><td><strong>Pune (Station) ⇄ Thane (Vandana)</strong></td><td>Volvo / E-Shivneri AC</td><td>Every 30 mins</td><td>₹510</td></tr>
+        <tr><td><strong>Pune (Wakad) ⇄ Borivali (Sukurwadi)</strong></td><td>Volvo / E-Shivneri AC</td><td>Every 30–45 mins</td><td>₹560</td></tr>
+        <tr><td><strong>Pune ⇄ Kolhapur Central</strong></td><td>Shivneri Volvo Multi-Axle</td><td>Every 60 mins</td><td>₹680</td></tr>
+      </table>
+
+      <h2>E-Shivneri Electric Fleet</h2>
+      <p>MSRTC has electrified a substantial portion of the Mumbai–Pune fleet with 12-meter air-conditioned electric buses. E-Shivneri provides a zero-emission, noiseless travel experience with identical fares, onboard CCTV surveillance, emergency SOS buttons, and high-speed USB-C fast charging at each seat.</p>`,
+    faq: [
+      { q: 'How frequent are Shivneri buses between Mumbai Dadar and Pune Swargate?', a: 'Shivneri buses depart every 15 to 20 minutes round-the-clock (24 hours a day, 7 days a week) between Dadar and Swargate via the Mumbai-Pune Expressway.' },
+      { q: 'What is the ticket price of a Shivneri bus from Mumbai to Pune?', a: 'The indicative ticket price for a Shivneri Volvo or E-Shivneri electric bus between Dadar (Mumbai) and Pune is approximately ₹520.' },
+      { q: 'Does Shivneri bus stop for refreshments?', a: 'Yes, Shivneri buses operating on the Mumbai-Pune Expressway stop for a designated 15–20 minute food break at food courts along the expressway.' },
+      { q: 'Where do I book Shivneri tickets in advance?', a: 'Book directly on npublic.msrtcors.com or use the MSRTC Bus Reservation mobile app. Current seats are also bookable at Dadar Asiad and Swargate counter windows.' },
+    ],
+  },
+  {
+    slug: 'msrtc-bus-pass-concessions-students-senior-citizens',
+    navLabel: 'MSRTC bus pass & travel concessions',
+    title: 'MSRTC Bus Pass & Travel Concessions: Students & Seniors Guide',
+    description: 'Complete guide to MSRTC bus passes, monthly student pass schemes, Mahila Samman 50% discount, and 100% free travel for 75+ senior citizens in Maharashtra.',
+    h1: 'MSRTC Bus Pass Online, Student Passes & Travel Concession Schemes',
+    bodyHtml: `
+      <p>Maharashtra State Road Transport Corporation provides statutory social welfare concessions and subsidized bus passes for students, senior citizens, female commuters, persons with disabilities, and state awardees. Understanding the eligibility criteria and documentation requirements ensures seamless travel across Maharashtra.</p>
+
+      <h2>Major MSRTC Travel Concession Schemes</h2>
+      <table>
+        <tr><th>Scheme Name</th><th>Eligible Beneficiaries</th><th>Discount Percentage</th><th>Permitted Bus Classes</th></tr>
+        <tr><td><strong>Mahila Samman Yojana</strong></td><td>All female passengers in Maharashtra</td><td><strong>50% Concession</strong></td><td>Parivartan, Hirkani, Shivshahi</td></tr>
+        <tr><td><strong>Amrit Varishtha Nagrik Yojana</strong></td><td>Senior citizens aged 75 years and above</td><td><strong>100% Free Travel</strong></td><td>All MSRTC bus classes except Volvo</td></tr>
+        <tr><td><strong>Senior Citizens (65–74 Yrs)</strong></td><td>Senior citizens aged 65 to 74 years</td><td><strong>50% Concession</strong></td><td>Parivartan, Hirkani, Shivshahi</td></tr>
+        <tr><td><strong>Ahilyabai Holkar Scheme</strong></td><td>Girl students up to 12th standard</td><td><strong>100% Free Travel</strong></td><td>Ordinary village/school buses</td></tr>
+        <tr><td><strong>Monthly Student Pass</strong></td><td>School & college students</td><td><strong>66.67% Subsidized</strong></td><td>Ordinary district & rural routes</td></tr>
+        <tr><td><strong>Divyangjan Concession</strong></td><td>Persons with 40%+ benchmark disabilities</td><td><strong>Up to 75% Discount</strong></td><td>All standard buses (with escort allowance)</td></tr>
+      </table>
+
+      <h2>How to Apply for an MSRTC Bus Pass</h2>
+      <ol>
+        <li><strong>Obtain the Form:</strong> Download the pass application form from <a href="https://msrtc.maharashtra.gov.in" target="_blank" rel="noopener">msrtc.maharashtra.gov.in</a> or collect it from your local bus depot pass counter.</li>
+        <li><strong>Institutional Verification:</strong> Students must have the application signed and stamped by the school headmaster or college principal.</li>
+        <li><strong>Required Documents:</strong> Attach photocopy of Aadhaar Card, bona fide student certificate or age proof, and two passport-size photographs.</li>
+        <li><strong>Fee Submission:</strong> Submit the verified form at the depot pass window and pay the subsidized monthly or quarterly pass fee.</li>
+        <li><strong>Smart Card Issuance:</strong> Collect your computerized MSRTC Smart Pass card for contactless validation during journeys.</li>
+      </ol>`,
+    faq: [
+      { q: 'Is bus travel free for women in Maharashtra ST buses?', a: 'Under the Mahila Samman Yojana, all women passengers receive a 50% discount on ticket fares across all standard MSRTC buses including Parivartan, Hirkani, and Shivshahi.' },
+      { q: 'What is the age requirement for free senior citizen bus travel in Maharashtra?', a: 'Citizens aged 75 years and above travel 100% free under the Amrit Varishtha Nagrik Yojana upon showing government age proof such as an Aadhaar card.' },
+      { q: 'How do students get a monthly bus pass for MSRTC?', a: 'Students can collect the pass form from their nearest MSRTC depot, get it certified by their educational institution, and submit it with Aadhaar and school ID to obtain a subsidized pass.' },
+      { q: 'Can I use a senior citizen pass on Shivneri Volvo buses?', a: 'Free travel schemes for 75+ seniors generally apply to Parivartan ordinary, Hirkani semi-luxury, and Shivshahi AC buses. Premium Shivneri Volvo services have specific separate tariff regulations.' },
+    ],
+  },
+  {
+    slug: 'msrtc-parcel-cargo-courier-booking',
+    navLabel: 'MSRTC parcel & cargo booking',
+    title: 'MSRTC Parcel & Cargo Service: Booking, Rates & Tracking Guide',
+    description: 'How to send parcels via MSRTC bus cargo courier service across Maharashtra: booking counters, weight tariff slabs, delivery timelines and tracking.',
+    h1: 'MSRTC Parcel & Goods Cargo Courier Booking Guide',
+    bodyHtml: `
+      <p>Maharashtra State Road Transport Corporation operates an extensive statewide parcel and courier network utilizing the luggage compartments of its 14,000+ daily buses. The <strong>MSRTC Parcel and Cargo Service</strong> provides affordable same-day and next-day point-to-point courier delivery connecting over 250 bus depots across Maharashtra.</p>
+
+      <h2>Why Use MSRTC Cargo Service?</h2>
+      <ul>
+        <li><strong>Widespread Reach:</strong> Reaches remote talukas and rural villages where private courier companies have no distribution presence.</li>
+        <li><strong>High Frequency:</strong> Consignments travel on the next scheduled express departure, ensuring rapid inter-district delivery.</li>
+        <li><strong>Affordable Tariffs:</strong> Highly competitive government-regulated weight and volume slab rates compared to commercial air or surface couriers.</li>
+        <li><strong>Safety & Reliability:</strong> Registered parcel booking with printed consignment notes and station master custody.</li>
+      </ul>
+
+      <h2>Step-by-Step Parcel Booking Process</h2>
+      <ol>
+        <li><strong>Package Securely:</strong> Pack your items in sturdy cartons or gunny bags with recipient details, contact phone number, and destination depot clearly marked.</li>
+        <li><strong>Visit the Parcel Counter:</strong> Take your package to the official MSRTC Parcel Booking Office at the origin bus station (usually located adjacent to the parcel godown).</li>
+        <li><strong>Weighing & Documentation:</strong> The parcel clerk inspects, weighs, and measures the consignment to determine the applicable rate slab.</li>
+        <li><strong>Receive Consignment Note:</strong> Pay the freight charges and collect the stamped Parcel Booking Receipt (LR / Lorry Receipt) containing your tracking number.</li>
+        <li><strong>Recipient Collection:</strong> The receiver visits the destination depot parcel godown with the LR number and valid photo identity card to claim the parcel.</li>
+      </ol>`,
+    faq: [
+      { q: 'How long does an MSRTC parcel take to reach another city?', a: 'Parcels dispatched on direct intercity buses typically arrive on the same day (within 4 to 8 hours for routes like Mumbai-Pune or Pune-Nashik) or early next morning for overnight long-distance routes.' },
+      { q: 'Where do I collect parcels sent via MSRTC ST bus?', a: 'Parcels must be collected from the official MSRTC Parcel Office / Godown located inside the destination bus stand upon presenting the consignment receipt number and photo ID.' },
+      { q: 'Are perishable items or liquids permitted in MSRTC cargo?', a: 'Standard commercial items, spare parts, documents, dry goods, and luggage are accepted. Perishable goods must be booked on direct non-stop routes. Hazardous or inflammable materials are strictly prohibited.' },
+      { q: 'Who do I contact for MSRTC parcel delivery inquiries?', a: 'Contact the Parcel Supervisor at the respective bus depot or call the statewide MSRTC helpline at 1800-22-1250.' },
     ],
   },
 ];

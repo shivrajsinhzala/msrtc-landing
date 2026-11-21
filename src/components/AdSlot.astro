@@ -2,18 +2,73 @@
 interface Props {
   slotId?: string;
   label?: string;
+  format?: string;
 }
 
-const { slotId = '5213571252', label = 'Advertisement' } = Astro.props;
+const { slotId = '5213571252', label = 'Advertisement', format = 'auto' } = Astro.props;
 const AD_CLIENT = 'ca-pub-7164999486301748';
 ---
 
 <div class="ad-slot-wrap" aria-label={label}>
   <p class="ad-label">{label}</p>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client={AD_CLIENT}
-       data-ad-slot={slotId}
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
+  <div class="ad-container-inner">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client={AD_CLIENT}
+         data-ad-slot={slotId}
+         data-ad-format={format}
+         data-full-width-responsive="true"></ins>
+  </div>
 </div>
+
+<style>
+  .ad-slot-wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 1.75rem auto;
+    padding: 0.65rem 0.5rem;
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: var(--radius, 10px);
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    clear: both;
+  }
+
+  .ad-label {
+    margin: 0 0 0.45rem 0;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--slate-muted, #64748b);
+    text-align: center;
+  }
+
+  .ad-container-inner {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    min-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ad-container-inner :global(ins.adsbygoogle) {
+    display: block !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  @media (max-width: 1024px) {
+    .ad-slot-wrap {
+      margin: 1.25rem 0;
+      padding: 0.5rem 0.25rem;
+    }
+  }
+</style>

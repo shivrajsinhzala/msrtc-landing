@@ -77,7 +77,7 @@ const searchDataset = [
         महाराष्ट्र राज्य मार्ग परिवहन महामंडळ (एसटी बस वेळापत्रक व संपर्क)
       </p>
       <p class="hero-sub" style="font-size:1.05rem;line-height:1.6;color:var(--slate);margin-bottom:2rem;">
-        Indicative departure times and ticket prices, plus enquiry counter phone lines, for Shivneri Volvo, Shivshahi AC and Ordinary Lal Pari buses across 20 major Maharashtra regions.
+        Indicative departure times and ticket prices, plus enquiry counter phone lines, for Shivneri Volvo, Shivshahi AC and Ordinary Lal Pari buses across all 36 Maharashtra districts and transport divisions.
       </p>
 
       <!-- Instant National Search Bar -->
@@ -114,14 +114,14 @@ const searchDataset = [
       </div>
     </section>
 
-    <!-- Above-The-Fold Ad Slot -->
-    <AdSlot slotId="5213571252" label="Sponsored Advertisement" />
+    <!-- Above-The-Fold Top Banner Ad Slot -->
+    <AdSlot slotId="2791501592" label="Sponsored Advertisement" />
 
     <!-- Fleet & Metric Strip -->
     <div class="route-spec-grid" style="margin:2.5rem 0;">
       <div class="route-spec-cell">
-        <div class="route-spec-label">Regions Covered</div>
-        <div class="route-spec-value">20 Regions</div>
+        <div class="route-spec-label">Divisions Covered</div>
+        <div class="route-spec-value">{DEPOTS.length} Divisions</div>
       </div>
       <div class="route-spec-cell">
         <div class="route-spec-label">Bus Terminals</div>
@@ -193,7 +193,7 @@ const searchDataset = [
           </p>
         </div>
         <a class="section-link" href="/stations">
-          <span>All 20 Listed Regions</span>
+          <span>All {DEPOTS.length} Listed Divisions</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
@@ -305,8 +305,8 @@ const searchDataset = [
       </div>
     </section>
 
-    <!-- Pre-Footer Ad Slot -->
-    <AdSlot slotId="5213571252" label="Sponsored" />
+    <!-- Pre-Footer High-Impact Bottom Ad Slot -->
+    <AdSlot slotId="6237686340" label="Sponsored" />
 
   </div>
 

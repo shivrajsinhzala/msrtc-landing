@@ -42,16 +42,16 @@ const breadcrumbs = [
 
     <AccuracyNote fares={guide.slug === 'msrtc-bus-fare' || guide.slug === 'msrtc-bus-timetable'} />
 
-    <!-- Above-The-Fold Ad Slot -->
-    <AdSlot slotId="5213571252" label="Advertisement" />
+    <!-- Above-The-Fold Top Banner Ad Slot -->
+    <AdSlot slotId="2791501592" label="Sponsored Advertisement" />
 
     <!-- Guide Body Copy -->
     <article class="guide-content-article" style="line-height:1.75;font-size:1.02rem;color:var(--ink);margin:2rem 0;">
       <Fragment set:html={guide.bodyHtml} />
     </article>
 
-    <!-- Mid-Content Ad Slot -->
-    <AdSlot slotId="5213571252" label="Sponsored" />
+    <!-- Mid-Content High-RPM Ad Slot -->
+    <AdSlot slotId="5213571252" label="Advertisement" />
 
     <!-- Questions People Ask (FAQ) -->
     {guide.faq && guide.faq.length > 0 && (
